@@ -3,9 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DailyIO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(
+                -45deg, 
+                #FF6B6B,
+                #4ECDC4,
+                #45B7D1,
+                #96C93D
+            );
+            background-size: 400% 400%;
+            min-height: 100vh;
+            padding: 20px;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 3.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease;
+            letter-spacing: 2px;
+        }
+
+        header h1 span {
+            color: #FFD93D;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FFD93D, transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(31, 38, 135, 0.25);
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card h2 {
+            color: #2C3E50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #E0E0E0;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: linear-gradient(135deg, #6CD0FF 0%, #1A91DA 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .feature:nth-child(2) {
+            background: linear-gradient(135deg, #FF9F9F 0%, #FF4B4B 100%);
+        }
+
+        .feature:nth-child(3) {
+            background: linear-gradient(135deg, #A5FF9F 0%, #4BFF6D 100%);
+        }
+
+        .feature:nth-child(4) {
+            background: linear-gradient(135deg, #FFD59F 0%, #FF9F4B 100%);
+        }
+
+        .feature:nth-child(5) {
+            background: linear-gradient(135deg, #9F9FFF 0%, #4B4BFF 100%);
+        }
+
+        .feature:nth-child(6) {
+            background: linear-gradient(135deg, #FF9FE5 0%, #FF4BD5 100%);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature h3 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .feature p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9em;
+        }
+
+        .quote, .fun-fact {
+            background: linear-gradient(135deg, #F6F8FA 0%, #E9ECEF 100%);
+            color: #2C3E50;
+            margin: 15px 0;
+            padding: 25px;
+            border-radius: 15px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quote:hover, .fun-fact:hover {
+            background: white;
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: #FFD93D;
+            box-shadow: 0 0 15px rgba(255,217,61,0.2);
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+            margin-bottom: 10px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #2C3E50;
+        }
+
+        .todo-item:hover {
+            background: white;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>Daily<span>IO</span></h1>
+        </header>
+        
+        <div class="dashboard">
+            <!-- Left Column - Quotes -->
+            <div class="quote-section">
+                <div class="card">
+                    <h2>Daily Inspiration</h2>
+                    <div class="quote">
+                        "The only way to do great work is to love what you do." - Steve Jobs
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column - Main Features -->
+            <div class="main-content">
+                <div class="card">
+                    <h2>Features Hub</h2>
+                    <div class="feature-grid">
+                        <div class="feature">
+                            <h3>Mini Games</h3>
+                            <p>Play & Relax</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Weather</h3>
+                            <p>Current: 72°F Sunny</p>
+                        </div>
+                        <div class="feature">
+                            <h3>News Updates</h3>
+                            <p>Latest Headlines</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Stock Market</h3>
+                            <p>Market Trends</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Unit Converter</h3>
+                            <p>Quick Convert</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Currency</h3>
+                            <p>Exchange Rates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>To-Do List</h2>
+                    <input type="text" class="todo-input" placeholder="Add a new task...">
+                    <div class="todo-list">
+                        <div class="todo-item">📝 Complete daily report</div>
+                        <div class="todo-item">🏃‍♂️ Evening workout</div>
+                        <div class="todo-item">📚 Read chapter 5</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Fun Facts -->
+            <div class="fun-facts">
+                <div class="card">
+                    <h2>Fun Facts</h2>
+                    <div class="fun-fact">
+                        Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
