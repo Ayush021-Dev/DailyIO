@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DailyIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
         * {
-            margin: 0;
+            margin: 5;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Inter';
         }
 
         body {
@@ -22,7 +25,7 @@
             );
             background-size: 400% 400%;
             min-height: 100vh;
-            padding: 20px;
+            padding: 20px 20px;
             animation: gradientBG 15s ease infinite;
         }
 
@@ -242,16 +245,82 @@
                 font-size: 2.5em;
             }
         }
-        .top-right { 
-            position: absolute; 
-            top: 10px; 
-            right: 10px; 
-        } 
-        
+
+        /* Below is the styling for navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2A1E5C;
+            padding: 10px 20px;
+            position: fixed; 
+            top: 0;
+            right: 0; /* navbar's right is convering full*/
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center; /* Aligns logo vertically */
+            height: 100%;
+        }
+        .logo img {
+            max-height: 30px; /* Restrict the maximum height of the logo */
+            height: auto; /* Maintain the aspect ratio */
+            width: auto; /* Ensure the width adapts proportionally */
+            vertical-align: middle; /* Aligns the logo vertically in the navbar */
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: White;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-links a:hover {
+            color: White;
+        }
+
+        .login-signup a {
+            color: White;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .login-signup a:hover {
+            color: orangered;
+        }
+        /* navbar styling ends here*/
     </style>
 </head>
 <body>
     <div class="container">
+
+        <nav class="navbar">
+            <div class="logo"><a href="#"><img src="Logo.png" alt="DailyIO" width="15"></a></div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+            <div class="login-signup">
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+        </nav>
+
         <header>
             <h1>Daily<span>IO</span></h1>
         </header>
@@ -321,11 +390,6 @@
             </div>
         </div>
     </div>
-    <div class="container"> 
-        <div class="ribbon"> 
-            <a href="login.html">Login</a>
-            <a href="signup.html">Signup</a> 
-        </div> 
-    </div>
+    
 </body>
 </html>
