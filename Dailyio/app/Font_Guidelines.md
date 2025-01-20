@@ -1,6 +1,6 @@
 # Font Families for DailyIO
 
-**Font families that align with DAILYIO's goals of being a daily destination for news, weather, games, and productivity while maintaining readability and reducing eye strain.**
+**Font families that align with DailyIO's goals of being a daily destination for news, weather, games, and productivity while maintaining readability and reducing eye strain.**
 
 ## Primary Font Selection - Poppins
 
