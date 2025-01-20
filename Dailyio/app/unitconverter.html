@@ -15,82 +15,157 @@
                 --red-crayola: #EE4266;
                 --thistle: #F0D3F7;
                 --tea-green: #CAFFD0;
-                
+                            
                 /* Opacity Variants */
                 --russian-violet-80: rgba(42, 30, 92, 0.8);
                 --night-60: rgba(10, 15, 13, 0.6);
                 --thistle-15: rgba(240, 211, 247, 0.15);
+
+                /* Custom Variables */
+                --background-color: var(--tea-green);
+                --text-color: var(--night);
+                --card-bg: white; /* Assuming a light card background */
+                --primary-color: var(--russian-violet);
+                --accent-color: var(--thistle);
+                --hover-bg: var(--thistle-15);
+                --input-border: var(--night-60);
+                --secondary-color: var(--red-crayola);
+                --button-hover: var(--night); /* A slightly darker shade of Red Crayola for button hover */
             }
 
-            body { 
-                font-family: 'Inter', sans-serif; 
-                background-color: white; 
-                color: var(--night); margin: 0; padding: 0; 
-            } 
-            .container { 
-                max-width: 600px; 
-                margin: 50px auto; 
-                padding: 20px; 
-                border: 1px solid var(--grey-80); 
-                border-radius: 8px; 
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-            } 
-            h1 { 
-                font-family: 'Poppins', sans-serif; 
-                font-weight: 600; 
-                font-size: 2rem; 
-                color: var(--russian-violet); 
-            } 
-            label { 
-                display: block; 
-                margin: 10px 0 5px; 
-                font-family: 'Poppins', sans-serif; 
-                font-weight: 500; 
-            } 
-            input, select { 
-                width: calc(100% - 20px); 
-                padding: 10px; 
-                margin: 5px 0 15px; 
-                border: 1px solid var(--night); 
-                border-radius: 4px; 
-                font-family: 'Inter', sans-serif; 
-            } 
-            button { 
-                width: 100%; 
-                padding: 10px; 
-                background-color: var(--red-crayola); 
-                color: white; 
-                border: none; 
-                border-radius: 4px; 
-                font-family: 'Poppins', sans-serif; 
-                font-weight: 500; 
-                cursor: pointer; 
-                transition: background-color 0.3s ease; 
-            } 
-            
-            button:hover { 
-                background-color: var(--night);
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                box-sizing: border-box;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 500px;
+                background-color: var(--card-bg);
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: var(--primary-color);
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--text-color);
+            }
+
+            select, input {
+                width: 100%;
+                padding: 12px;
+                margin: 8px 0 2px 0;
+                border: 1px solid var(--input-border);
+                border-radius: 8px;
+                font-size: 1rem;
+                font-family: 'Inter', sans-serif;
+                transition: border-color 0.3s ease;
+            }
+
+            select:focus, input:focus {
+                border-color: var(--primary-color);
+            }
+
+            .conversion-type {
+                display: flex;
+                justify-content: space-between;
+                gap: 2px;
+                flex-wrap: wrap;
+                margin-bottom: 2px;
+            }
+
+            .conversion-type label {
+                background-color: var(--accent-color);
+                padding: 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                text-align: center;
+                width: 48%;
+                transition: background-color 0.3s ease;
+                box-sizing: border-box;
+            }
+
+            @media (max-width: 48px) {
+                .conversion-type label {
+                    width: 100%;
+                }
+            }
+
+            .conversion-type label:hover {
+                background-color: var(--hover-bg);
+            }
+
+            button {
+                width: 100%;
+                padding: 14px;
+                background-color: var(--secondary-color);
+                color: #FFFFFF;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: var(--button-hover);
                 color: var(--red-crayola);
             }
-            p { 
-                font-family: 'Inter', sans-serif; 
-                font-size: 1rem; 
-                color: var(--night); 
+
+            p {
+                font-size: 1rem;
+                text-align: center;
+                color: var(--text-color);
             }
+
+
+
         </style>
     </head>
     <body>
         <div class="container"> 
-            <h1>Unit Converter</h1>
-            <label for="input">Enter value:</label> 
-            <input type="number" id="input" placeholder="Enter value"> 
-            <label for="units">Select conversion: </label> 
-            <select id="units"> 
-                <option value="milesToKm">Miles to Kilometers</option> 
-                <option value="kmToMiles">Kilometers to Miles</option> 
-                <!-- Add more unit options here --> 
+            <h1>Unit Converter</h1> 
+            <label for="conversion-type">Select conversion type:</label> 
+            <select id="conversion-type"> 
+                <option value="length">Length</option>
+                <option value="mass">Mass</option> 
+                <option value="area">Area</option> 
+                <option value="time">Time</option> 
+                <option value="data">Data</option> 
+                <option value="discount">Discount</option> 
+                <option value="volume">Volume</option> 
+                <option value="speed">Speed</option> 
+                <option value="temperature">Temperature</option> 
+                <option value="bmi">BMI</option> 
             </select> 
-            <button >Convert</button>
-            </div>
+            <label for="input">Enter value:</label> 
+            <input type="number" id="input" placeholder="Enter value">
+            <label for="units">Select conversion options:</label> 
+            <select id="units"> 
+                <option value="units-placeholder">Waiting for selection...</option> 
+                <!-- Add conversion specific options here e.g. miles-to-km, km-to-miles etc. -->
+            </select>
+            <button>Convert</button>
+        </div>
     </body>
 </html>
