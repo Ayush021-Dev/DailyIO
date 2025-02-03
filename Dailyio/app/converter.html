@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universal Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f4f8;
+        }
+        .converter-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .converter-section {
+            margin-bottom: 20px;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .convert-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <div class="converter-section" id="currencyConverter">
+            <h2>Currency Converter</h2>
+            <input type="number" id="currencyAmount" placeholder="Amount">
+            <select id="fromCurrency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+            </select>
+            <select id="toCurrency">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+            </select>
+            <button class="convert-button" onclick="convertCurrency()">Convert</button>
+            <div id="currencyResult" class="result">Result: -</div>
+        </div>
+
+        <div class="converter-section" id="lengthConverter">
+            <h2>Length Converter</h2>
+            <input type="number" id="lengthAmount" placeholder="Amount">
+            <select id="fromLength">
+                <option value="meters">Meters</option>
+                <option value="kilometers">Kilometers</option>
+                <option value="miles">Miles</option>
+                <option value="feet">Feet</option>
+            </select>
+            <select id="toLength">
+                <option value="kilometers">Kilometers</option>
+                <option value="meters">Meters</option>
+                <option value="miles">Miles</option>
+                <option value="feet">Feet</option>
+            </select>
+            <button class="convert-button" onclick="convertLength()">Convert</button>
+            <div id="lengthResult" class="result">Result: -</div>
+        </div>
+
+        <div class="converter-section" id="weightConverter">
+            <h2>Weight Converter</h2>
+            <input type="number" id="weightAmount" placeholder="Amount">
+            <select id="fromWeight">
+                <option value="kilograms">Kilograms</option>
+                <option value="grams">Grams</option>
+                <option value="pounds">Pounds</option>
+                <option value="ounces">Ounces</option>
+            </select>
+            <select id="toWeight">
+                <option value="pounds">Pounds</option>
+                <option value="kilograms">Kilograms</option>
+                <option value="grams">Grams</option>
+                <option value="ounces">Ounces</option>
+            </select>
+            <button class="convert-button" onclick="convertWeight()">Convert</button>
+            <div id="weightResult" class="result">Result: -</div>
+        </div>
+    </div>
+
+    <script>
+        const conversionRates = {
+            currency: {
+                USD: { USD: 1, EUR: 0.92, GBP: 0.79, JPY: 149.50 },
+                EUR: { EUR: 1, USD: 1.09, GBP: 0.86, JPY: 162.50 },
+                GBP: { GBP: 1, USD: 1.27, EUR: 1.16, JPY: 189.00 },
+                JPY: { JPY: 1, USD: 0.0067, EUR: 0.0062, GBP: 0.0053 }
+            },
+            length: {
+                meters: { meters: 1, kilometers: 0.001, miles: 0.000621, feet: 3.28084 },
+                kilometers: { kilometers: 1, meters: 1000, miles: 0.621371, feet: 3280.84 },
+                miles: { miles: 1, meters: 1609.34, kilometers: 1.60934, feet: 5280 },
+                feet: { feet: 1, meters: 0.3048, kilometers: 0.0003048, miles: 0.000189394 }
+            },
+            weight: {
+                kilograms: { kilograms: 1, pounds: 2.20462, grams: 1000, ounces: 35.274 },
+                pounds: { pounds: 1, kilograms: 0.453592, grams: 453.592, ounces: 16 },
+                grams: { grams: 1, kilograms: 0.001, pounds: 0.00220462, ounces: 0.035274 },
+                ounces: { ounces: 1, kilograms: 0.0283495, pounds: 0.0625, grams: 28.3495 }
+            }
+        };
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('currencyAmount').value);
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            if (isNaN(amount) || amount <= 0) return alert("Enter a valid amount!");
+
+            const result = amount * conversionRates.currency[fromCurrency][toCurrency];
+            document.getElementById('currencyResult').textContent = `Result: ${result.toFixed(2)} ${toCurrency}`;
+        }
+
+        function convertLength() {
+            const amount = parseFloat(document.getElementById('lengthAmount').value);
+            const fromLength = document.getElementById('fromLength').value;
+            const toLength = document.getElementById('toLength').value;
+            if (isNaN(amount) || amount <= 0) return alert("Enter a valid amount!");
+
+            const result = amount * conversionRates.length[fromLength][toLength];
+            document.getElementById('lengthResult').textContent = `Result: ${result.toFixed(2)} ${toLength}`;
+        }
+
+        function convertWeight() {
+            const amount = parseFloat(document.getElementById('weightAmount').value);
+            const fromWeight = document.getElementById('fromWeight').value;
+            const toWeight = document.getElementById('toWeight').value;
+            if (isNaN(amount) || amount <= 0) return alert("Enter a valid amount!");
+
+            const result = amount * conversionRates.weight[fromWeight][toWeight];
+            document.getElementById('weightResult').textContent = `Result: ${result.toFixed(2)} ${toWeight}`;
+        }
+    </script>
+</body>
+</html>

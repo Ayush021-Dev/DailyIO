@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
         * {
-            margin: 5;
+            margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', 'Inter';
@@ -44,8 +44,9 @@
         header {
             text-align: center;
             padding: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             position: relative;
+            margin-top: 80px;
         }
 
         header h1 {
@@ -62,9 +63,13 @@
 
         .dashboard {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
+            justify-content: center;
+            align-items: center;
             animation: fadeIn 1s ease;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .card {
@@ -77,41 +82,14 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(4px);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #FFD93D, transparent);
-            transition: 0.5s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(31, 38, 135, 0.25);
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card h2 {
-            color: #2C3E50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #E0E0E0;
-            position: relative;
-            font-weight: 600;
+            will-change: transform, box-shadow;
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            justify-content: center;    
         }
 
         .feature {
@@ -124,6 +102,7 @@
             position: relative;
             overflow: hidden;
             color: white;
+            will-change: transform, box-shadow;
         }
 
         .feature:nth-child(2) {
@@ -146,8 +125,16 @@
             background: linear-gradient(135deg, #FF9FE5 0%, #FF4BD5 100%);
         }
 
+        .feature a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
         .feature:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
@@ -156,69 +143,13 @@
             margin-bottom: 8px;
             font-size: 1.2em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            pointer-events: none;
         }
 
         .feature p {
             color: rgba(255,255,255,0.9);
             font-size: 0.9em;
-        }
-        .no-underline
-        .quote, .fun-fact {
-            background: linear-gradient(135deg, #F6F8FA 0%, #E9ECEF 100%);
-            color: #2C3E50;
-            margin: 15px 0;
-            padding: 25px;
-            border-radius: 15px;
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            transition: all 0.3s ease;
-            font-size: 1.1em;
-            line-height: 1.6;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .quote:hover, .fun-fact:hover {
-            background: white;
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .todo-input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            background: rgba(255,255,255,0.9);
-        }
-
-        .todo-input:focus {
-            outline: none;
-            border-color: #FFD93D;
-            box-shadow: 0 0 15px rgba(255,217,61,0.2);
-        }
-
-        .todo-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
-            margin-bottom: 10px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            color: #2C3E50;
-        }
-
-        .todo-item:hover {
-            background: white;
-            transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
         }
 
         @keyframes fadeIn {
@@ -247,34 +178,38 @@
             }
         }
 
-        /* Below is the styling for navbar */
+        /* Navbar Styling Remains the Same */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #2A1E5C;
-            padding: 10px 20px;
+            background: linear-gradient(135deg, #2A1E5C 0%, #3D2E6D 100%);
+            padding: 15px 5%;
             position: fixed; 
             top: 0;
-            right: 0; /* navbar's right is convering full*/
+            right: 0;
             width: 100%;
             z-index: 1000;
-            border: 3px solid #EE4266;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
 
         .logo a {
             display: flex;
-            align-items: center; /* Aligns logo vertically */
-            height: 100%;
+            align-items: center;
         }
+
         .logo img {
-            max-height: 30px; /* Restrict the maximum height of the logo */
-            height: auto; /* Maintain the aspect ratio */
-            width: auto; /* Ensure the width adapts proportionally */
-            vertical-align: middle; /* Aligns the logo vertically in the navbar */
-            border-radius: 5px;
+            max-height: 40px;
+            height: auto;
+            width: auto;
+            vertical-align: middle;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
         }
 
         .nav-links {
@@ -282,32 +217,75 @@
             display: flex;
             margin: 0;
             padding: 0;
+            gap: 25px;
         }
 
         .nav-links li {
-            margin: 0 10px;
+            position: relative;
         }
 
         .nav-links a {
-            color: White;
+            color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #EE4266;
+            transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #EE4266;
         }
 
-        .login-signup a {
-            color: White;
-            text-decoration: none;
-            margin: 0 10px;
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
         }
 
-        .login-signup a:hover {
-            color: #EE4266;
+        .login-signup {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        /* navbar styling ends here*/
+
+        .login-signup a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-signup a:first-child {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .login-signup a:first-child:hover {
+            border-color: #EE4266;
+        }
+
+        .login-signup a:last-child {
+            background-color: #EE4266;
+            color: white;
+        }
+
+        .login-signup a:last-child:hover {
+            background-color: #FF5B7A;
+        }
     </style>
 </head>
 <body>
@@ -316,8 +294,9 @@
             <div class="logo"><a href="#"><img src="Logo.png" alt="DailyIO" width="15"></a></div>
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="todo.html">To-Do List</a></li>
             </ul>
             <div class="login-signup">
                 <a href="login.html">Login</a>
@@ -327,75 +306,53 @@
 
         <header>
             <h1>Daily<span>IO</span></h1>
+            <h2>What you wanna do?</h2>
         </header>
-        
+             
         <div class="dashboard">
-            <!-- Left Column - Quotes -->
-            <div class="quote-section">
-                <div class="card">
-                    <h2>Daily Inspiration</h2>
-                    <div class="quote">
-                        "The only way to do great work is to love what you do." - Steve Jobs
-                    </div>
-                </div>
-            </div>
-
-            <!-- Center Column - Main Features -->
             <div class="main-content">
                 <div class="card">
-                    <h2>Features Hub</h2>
                     <div class="feature-grid">
                         <div class="feature">
-                            <h3>Mini Games</h3>
-                            <p>Play & Relax</p>
+                            <a href="games.html">
+                                <h3>Mini Games</h3>
+                                <p>Play & Relax</p>
+                            </a>
                         </div>
                         <div class="feature">
-                            <h3>Weather</h3>
-                            <p>Current: 72°F Sunny</p>
+                            <a href="weather.html">
+                                <h3>Weather</h3>
+                                <p>Current: 72°F Sunny</p>
+                            </a>
                         </div>
                         <div class="feature">
-                            <h3>News Updates</h3>
-                            <p>Latest Headlines</p>
+                            <a href="news.html">
+                                <h3>News Updates</h3>
+                                <p>Latest Headlines</p>
+                            </a>
                         </div>
                         <div class="feature">
-                            <h3>Stock Market</h3>
-                            <p>Market Trends</p>
+                            <a href="stock.html">
+                                <h3>Stock Market</h3>
+                                <p>Market Trends</p>
+                            </a>
                         </div>
                         <div class="feature">
-                            <a href="unitconverter.html" style="text-decoration: none;" target="_blank">
+                            <a href="unitconverter.html">
                                 <h3>Unit Converter</h3>
                                 <p>Quick Convert</p>
                             </a>
                         </div>
                         <div class="feature">
-                            <h3>Currency</h3>
-                            <p>Exchange Rates</p>
+                            <a href="converter.html">
+                                <h3>Currency</h3>
+                                <p>Exchange Rates</p>
+                            </a>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h2>To-Do List</h2>
-                    <input type="text" class="todo-input" placeholder="Add a new task...">
-                    <div class="todo-list">
-                        <div class="todo-item">📝 Complete daily report</div>
-                        <div class="todo-item">🏃‍♂️ Evening workout</div>
-                        <div class="todo-item">📚 Read chapter 5</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Fun Facts -->
-            <div class="fun-facts">
-                <div class="card">
-                    <h2>Fun Facts</h2>
-                    <div class="fun-fact">
-                        Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old!
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 </body>
 </html>
