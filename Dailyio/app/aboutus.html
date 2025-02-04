@@ -42,13 +42,15 @@
             background-color: var(--thistle); 
             color: var(--night); 
             margin: 0; 
-            padding: 0; 
+            padding: 0;
+            padding-top: 40px;
         }
 
         .container { 
             width: 80%; 
             margin: auto; 
             overflow: hidden; 
+            margin-top: 20px;
         }
 
         header { 
@@ -109,9 +111,142 @@
             margin-bottom: 20px; 
             background-color: var(--thistle-15);
         }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #2A1E5C 0%, #3D2E6D 100%);
+            padding: 10px 5%; /* Reduce padding to match home navbar */
+            position: fixed; 
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;  /* Ensures links are displayed side by side */
+            margin: 0;
+            padding: 0;
+            gap: 25px; /* Adds spacing between links */
+        }
+
+        .nav-links li {
+            display: inline-block; /* Ensures each list item is inline */
+        }
+
+
+        .nav-links a{
+            position: relative;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #EE4266;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #EE4266;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .login-signup {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-signup a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-signup a:first-child {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .login-signup a:first-child:hover {
+            border-color: #EE4266;
+        }
+
+        .login-signup a:last-child {
+            background-color: #EE4266;
+            color: white;
+        }
+
+        .login-signup a:last-child:hover {
+            background-color: #FF5B7A;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin: 0; /* Remove extra margins */
+            padding: 5 0 5 0; /* Remove unnecessary padding */
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 40px;  /* Matches home-navbar */
+            height: auto;
+            width: auto;
+            vertical-align: middle;
+            border-radius: 8px; /* Ensures same roundness */
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+        
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#">
+                <img src="Logo.png" alt="DailyIO">
+            </a>
+        </div>        
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="todo.html">To-Do List</a></li>
+        </ul>
+        <div class="login-signup">
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+        </div>
+    </nav>
+
     <div class="container"> 
         <header>
             <h1>About DailyIO</h1>
