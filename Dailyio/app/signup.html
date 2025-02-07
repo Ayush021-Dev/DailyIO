@@ -129,6 +129,49 @@
         .login-link a:hover {
             text-decoration: underline; 
         }
+
+        /* New styles for Google login */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--russian-violet);
+        }
+
+        .divider span {
+            padding: 0 10px;
+            color: var(--russian-violet);
+            font-size: 0.9rem;
+        }
+
+        .google-login {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--red-crayola);
+            color: white;
+            border: 1px solid var(--russian-violet);
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .google-login:hover{
+            background-color: var(--night);
+            color: var(--red-crayola);
+        }
     </style>
 </head>
 <body>
@@ -157,6 +200,13 @@
             <button type="submit" class="signup-button">Sign Up</button>
             
         </form>
+
+        <div class="divider">
+            <span>or</span>
+        </div>  
+        <button class="google-login">
+            <b>G     </b> Continue with Google
+        </button>
     </div>
 </body>
 </html>
