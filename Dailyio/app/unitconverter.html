@@ -16,12 +16,10 @@
             --thistle: #F0D3F7;
             --tea-green: #CAFFD0;
 
-            /* Opacity Variants */
             --russian-violet-80: rgba(42, 30, 92, 0.8);
             --night-60: rgba(10, 15, 13, 0.6);
             --thistle-15: rgba(240, 211, 247, 0.15);
 
-            /* Custom Variables */
             --background-color: var(--tea-green);
             --text-color: var(--night);
             --card-bg: var(--thistle);
@@ -53,7 +51,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative; /* Added for positioning the SVG button */
+            position: relative;
             border: 3px solid var(--russian-violet);
         }
 
@@ -74,7 +72,7 @@
 
         select, input {
             background-color: var(--thistle);
-            width: calc(100% - 24px); /* Adjust width to account for padding */
+            width: calc(100% - 24px);
             padding: 12px;
             margin: 8px 0 16px 0;
             border: 1px solid var(--input-border);
@@ -82,7 +80,7 @@
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
             transition: border-color 0.3s ease;
-            box-sizing: border-box; /* Ensure padding is included in width */
+            box-sizing: border-box;
         }
 
         select:focus, input:focus {
@@ -91,11 +89,11 @@
         }
 
         .exchange-icon {
-            background-color: var(--red-crayola); /* Default background */
+            background-color: var(--red-crayola);
             padding: 8px;
             border-radius: 6px;
             transition: background-color 0.3s ease, color 0.3s ease;
-            color: var(--night); /* Default arrow color */
+            color: var(--night);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -103,11 +101,11 @@
         }
 
         .exchange-icon:hover {
-            background-color: var(--night); /* Hover background */
+            background-color: var(--night);
         }
 
         .exchange-icon:hover .exchange-arrows {
-            fill: var(--red-crayola); /* Hover arrow color */
+            fill: var(--red-crayola);
         }
 
         button {
@@ -137,9 +135,9 @@
         }
 
         #xbutt {
-            position: relative; /* Changed from absolute */
-            display: block; /* Changed from flex */
-            margin: 10px auto; /* Added margin */
+            position: relative;
+            display: block;
+            margin: 10px auto;
             width: auto;
             padding: 8px;
             background-color: var(--red-crayola);
@@ -151,7 +149,7 @@
         #xbutt img {
             width: 24px;
             height: 24px;
-            filter: brightness(0); /* Makes icon black by default */
+            filter: brightness(0);
         }
 
         @media (max-width: 480px) {
@@ -174,6 +172,12 @@
             }
         }
     </style>
+    <script>
+        document.getElementById('xbutt').addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+    </script>
+    
 </head>
 <body>
     <div class="container">
@@ -197,8 +201,7 @@
                 <option value="miles">Miles</option>
             </select>
 
-            <!-- SVG Button -->
-            <button id="xbutt">
+            <button id="xbutt" type="button">
                 <span id="exchange-icon" class="exchange">
                     <img src="exchange.svg" alt="Exchange Icon">
                 </span>
