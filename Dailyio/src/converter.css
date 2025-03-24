@@ -1,0 +1,61 @@
+:root {
+    --russian-violet: #2A1E5C;
+    --night: #0A0F0D;
+    --red-crayola: #EE4266;
+    --thistle: #F0D3F7;
+    --tea-green: #CAFFD0;
+    
+    /* Opacity Variants */
+    --russian-violet-80: rgba(42, 30, 92, 0.8);
+    --night-60: rgba(10, 15, 13, 0.6);
+    --thistle-15: rgba(240, 211, 247, 0.15);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--tea-green);
+}
+
+.converter-container {
+    background-color: var(--thistle);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.converter-section {
+    margin-bottom: 20px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--night);
+    background-color: var(--thistle);
+    border-radius: 4px;
+}
+
+.convert-button {
+    background-color: var(--red-crayola);
+    color: var(--russian-violet);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.convert-button:hover {
+    background-color: var(--russian-violet);
+    color: var(--red-crayola);
+}
+
+.result {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}

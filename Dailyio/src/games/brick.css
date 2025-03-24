@@ -1,0 +1,71 @@
+.brick-breaker-page {
+  background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+  background-size: 400% 400%;
+  min-height: 100vh;
+  padding: 20px;
+  animation: brickGradientBG 15s ease infinite;
+}
+
+@keyframes brickGradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.brick-breaker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .game-title {
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .canvas-container {
+    margin: 20px 0;
+  }
+  
+  .game-canvas {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  }
+  
+  .game-instructions {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+    max-width: 800px;
+  }
+  
+  .game-instructions p {
+    color: white;
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+  }
+  
+  /* Make the game responsive */
+  @media (max-width: 850px) {
+    .game-canvas {
+      width: 100%;
+      height: auto;
+    }
+    
+    .game-title {
+      font-size: 2em;
+    }
+    
+    .game-instructions p {
+      font-size: 0.9em;
+    }
+  }

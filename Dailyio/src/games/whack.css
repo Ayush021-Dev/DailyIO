@@ -1,0 +1,174 @@
+.wam-animated-bg {
+  background-size: 400% 400%;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+  animation: wamGradientBG 15s ease infinite;
+  padding: 20px;
+}
+
+@keyframes wamGradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.wam-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(141, 206, 165, 0.9);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  font-family: 'Arial', sans-serif;
+}
+
+.wam-title {
+  color: #45552e;
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.wam-stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #45552e;
+  padding: 8px 15px;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+}
+
+.wam-score, .wam-timer {
+  font-size: 18px;
+}
+
+.wam-start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.wam-instructions {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #45552e;
+  font-size: 16px;
+}
+
+.wam-start-button, .wam-play-again-button {
+  background-color: #d6473e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.wam-start-button:hover, .wam-play-again-button:hover {
+  background-color: #b93931;
+}
+
+.wam-game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #6da876;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.wam-hole {
+  position: relative;
+  height: 80px;
+  background-color: #3c3219;
+  border-radius: 50%;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.wam-mole {
+  position: absolute;
+  width: 90%;
+  height: 70%;
+  background-color: #8b4513;
+  bottom: -70%;
+  left: 5%;
+  border-radius: 50% 50% 40% 40%;
+  transition: bottom 0.1s;
+}
+
+.wam-hole.wam-active .wam-mole {
+  bottom: 0;
+}
+
+.wam-hole.wam-active .wam-mole::before {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 30%;
+  background-color: #d68b52;
+  top: 20%;
+  left: 10%;
+  border-radius: 50%;
+}
+
+.wam-hole.wam-active .wam-mole::after {
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  background-color: #000;
+  top: 10%;
+  left: 25%;
+  border-radius: 50%;
+  box-shadow: 30px 0 0 #000;
+}
+
+.wam-game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+}
+
+.wam-game-over-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #d6473e;
+}
+
+.wam-final-score {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}

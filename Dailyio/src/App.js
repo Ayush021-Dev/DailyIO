@@ -1,24 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route,} from "react-router-dom";
+import Home from "./home";
+import Dashboard from "./dashboard";
+import Login from "./login";
+import Signup from "./signup";
+import Navbar from "./components/navbar";
+import AboutUs from "./aboutus";
+import Todo from "./todo";
+import Games from "./games";
+import Weather from "./weather";
+import BrickBreaker from "./games/brick";
+import WhackAMole from "./games/whack";
+import Snake from "./games/snake";
+import Game2048 from "./games/2048";
+import FlappyBird from "./games/flappy";
+import MemoryMatch from "./games/memory";
+import SlidingPuzzle from "./games/puzzle";
+import PingPong from "./games/pingpong";
+// import Converter from "./converter";
+// import News from "./news";
+// import Stock from "./stock";
+// import UnitConverter from "./unitconverter";
+
+const NavbarWrapper = ({ children }) => {
+  return (
+    <>
+      <Navbar />
+      <main className="with-navbar">
+        {children}
+      </main>
+    </>
+  );
+};
+const NoNavbarWrapper = ({ children }) => {
+  return <main>{children}</main>;
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Routes without navbar */}
+        <Route path="/" element={<NoNavbarWrapper><Home /></NoNavbarWrapper>} />
+        <Route path="/login" element={<NoNavbarWrapper><Login /></NoNavbarWrapper>} />
+        <Route path="/signup" element={<NoNavbarWrapper><Signup /></NoNavbarWrapper>} />
+        {/* Routes with navbar */}
+        <Route path="/dashboard" element={<NavbarWrapper><Dashboard /></NavbarWrapper>} />
+        <Route path="/todo" element={<NavbarWrapper><Todo /></NavbarWrapper>} />
+        <Route path="/aboutus" element={<NavbarWrapper><AboutUs /></NavbarWrapper>} />
+        <Route path="/Games" element={<NavbarWrapper><Games /></NavbarWrapper>} />
+        <Route path="/weather" element={<NavbarWrapper><Weather /></NavbarWrapper>} /> 
+        <Route path="/games/brick" element={<NavbarWrapper><BrickBreaker /></NavbarWrapper>} />
+        <Route path="/games/whack" element={<NavbarWrapper><WhackAMole /></NavbarWrapper>} />
+        <Route path="/games/snake" element={<NavbarWrapper><Snake /></NavbarWrapper>} />
+        <Route path="/games/2048" element={<NavbarWrapper><Game2048 /></NavbarWrapper>} />
+        <Route path="/games/flappy" element={<NavbarWrapper><FlappyBird /></NavbarWrapper>} />
+        <Route path="/games/memory" element={<NavbarWrapper><MemoryMatch /></NavbarWrapper>} />
+        <Route path="/games/puzzle" element={<NavbarWrapper><SlidingPuzzle /></NavbarWrapper>} />
+        <Route path="/games/pingpong" element={<NavbarWrapper><PingPong /></NavbarWrapper>} />
+        
+        {/* <Route path="/aboutus" element={<NavbarWrapper><AboutUs /></NavbarWrapper>} /> */}
+        {/* <Route path="/converter" element={<NavbarWrapper><Converter /></NavbarWrapper>} /> */}
+        {/* <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} /> */}
+        {/* <Route path="/stock" element={<NavbarWrapper><Stock /></NavbarWrapper>} /> */}
+        {/* <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} /> */}
+      </Routes>
+    </Router>
   );
 }
 

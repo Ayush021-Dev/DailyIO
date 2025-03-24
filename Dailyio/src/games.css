@@ -1,0 +1,115 @@
+/* Games.css */
+
+.games-page {
+    background: linear-gradient(
+        -45deg, 
+        #FF6B6B,
+        #4ECDC4,
+        #45B7D1,
+        #96C93D
+    );
+    background-size: 400% 400%;
+    min-height: 100vh;
+    padding: 20px 20px;
+    animation: gamesGradientBG 15s ease infinite;
+}
+
+@keyframes gamesGradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* React container classes */
+.games-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 80px; /* Space for navbar */
+    font-family: 'Poppins', sans-serif;
+}
+
+.games-content {
+    padding: 20px;
+}
+
+/* Header styles */
+.games-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Game grid layout */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Game card component styles */
+.game-card {
+    border-radius: 15px;
+    padding: 25px;
+    height: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(31, 38, 135, 0.25);
+}
+
+.game-card h3 {
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.game-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.game-card .game-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+/* Unique gradient backgrounds for each game card */
+.game-card:nth-child(1) { background: linear-gradient(135deg, #6CD0FF 0%, #1A91DA 100%); }
+.game-card:nth-child(2) { background: linear-gradient(135deg, #FF9F9F 0%, #FF4B4B 100%); }
+.game-card:nth-child(3) { background: linear-gradient(135deg, #A5FF9F 0%, #4BFF6D 100%); }
+.game-card:nth-child(4) { background: linear-gradient(135deg, #FFD59F 0%, #FF9F4B 100%); }
+.game-card:nth-child(5) { background: linear-gradient(135deg, #9F9FFF 0%, #4B4BFF 100%); }
+.game-card:nth-child(6) { background: linear-gradient(135deg, #FF9FE5 0%, #FF4BD5 100%); }
+.game-card:nth-child(7) { background: linear-gradient(135deg, #6CFFD0 0%, #1ADAA1 100%); }
+.game-card:nth-child(8) { background: linear-gradient(135deg, #FFD06C 0%, #FFA41A 100%); }
+
+.game-card a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
