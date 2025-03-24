@@ -409,13 +409,21 @@ const Game2048 = () => {
 
   // CSS for the animated gradient background
   const gradientKeyframes = `
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
   `;
-
   // Styles
   const styles = {
     gameContainer: {
@@ -424,18 +432,15 @@ const Game2048 = () => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
-      width: '100%',
-      maxWidth: '500px',
+      maxWidth: '300px',
       margin: '0 auto',
       boxSizing: 'border-box',
       fontFamily: 'Arial, sans-serif',
       borderRadius: '15px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       color: 'white',
-      // Animated gradient background
-      background: 'linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D)',
-      backgroundSize: '400% 400%',
-      animation: 'gradientBG 15s ease infinite',
+      marginTop: '80px',
+      background: 'rgba(82, 80, 216, 0.81)',
     },
     header: {
       fontSize: '2.5rem',
@@ -498,6 +503,7 @@ const Game2048 = () => {
     },
     button: {
       backgroundColor: '#ff9f67', // Orange from the Whack-A-Mole card
+      position: 'center',
       color: 'white',
       border: 'none',
       padding: '15px 30px',

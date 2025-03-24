@@ -21,9 +21,7 @@
     --secondary-color: var(--red-crayola);
     --button-hover: var(--night);
 }
-body{
-    padding-top: 0;
-}
+
 .auth-module * {
     margin: 0;
     padding: 0%;

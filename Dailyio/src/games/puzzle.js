@@ -113,9 +113,26 @@ const SlidingPuzzle = () => {
     : startTime 
       ? Date.now() - startTime 
       : 0;
-
+      const gradientKeyframes = `
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+      }
+  
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    `;
+  
   return (
     <div className="puzzle-container">
+      <style jsx>{gradientKeyframes}</style>
       <div className="puzzle-header">
         <h2>Sliding Puzzle</h2>
         <div className="puzzle-stats">
@@ -177,11 +194,12 @@ const SlidingPuzzle = () => {
         ))}
       </div>
       
+      
       <style jsx>{`
         .puzzle-container {
+        padding-top: 100px;
           max-width: 800px;
           margin: 0 auto;
-          padding: 20px;
           font-family: sans-serif;
         }
         
@@ -193,9 +211,10 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-header h2 {
-          color: #00c2a8;
+          color: white;
           font-size: 28px;
           margin-bottom: 10px;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .puzzle-stats {
@@ -204,6 +223,8 @@ const SlidingPuzzle = () => {
           gap: 20px;
           margin-bottom: 15px;
           font-size: 18px;
+          color: white;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
         .puzzle-controls {
@@ -220,7 +241,7 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-restart-btn {
-          background-color: #00c2a8;
+          background-color:rgb(25, 77, 70);
           color: white;
           border: none;
           padding: 8px 16px;
@@ -235,8 +256,8 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-size-btn {
-          background-color: #e0e0e0;
-          color: #333;
+          background-color: rgba(255,255,255,0.2);
+          color: white;
           border: none;
           padding: 6px 12px;
           border-radius: 4px;
@@ -246,11 +267,11 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-size-btn:hover {
-          background-color: #d0d0d0;
+          background-color: rgba(255, 255, 255, 0.07);
         }
         
         .puzzle-size-btn.active {
-          background-color: #00c2a8;
+          background-color:rgb(36, 134, 124);
           color: white;
         }
         
@@ -264,7 +285,7 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-tile {
-          background: linear-gradient(135deg, #2ce5ca, #00c2a8);
+          background: linear-gradient(135deg, rgb(104, 163, 206), rgb(97, 161, 179));
           border-radius: 8px;
           display: flex;
           justify-content: center;
@@ -288,17 +309,19 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-victory {
-          background-color: rgba(0, 194, 168, 0.1);
-          border: 2px solid #00c2a8;
+          background-color: rgba(255,255,255,0.2);
+          border: 2px solid white;
           border-radius: 8px;
           padding: 15px;
           margin-bottom: 20px;
           text-align: center;
+          color: white;
         }
         
         .puzzle-victory h3 {
-          color: #00c2a8;
+          color: white;
           margin-top: 0;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         /* Responsive design */

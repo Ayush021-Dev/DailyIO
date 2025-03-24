@@ -1,6 +1,5 @@
 .memory-match-page {
     background-size: 400% 400%;
-    overflow-y: hidden;
   min-height: 100vh;
   padding: 20px 20px;
     background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
@@ -31,7 +30,7 @@
   }
   
   .memory-match-header h2 {
-    color: #ff6b6b;
+    color: #f0e8e8;
     font-size: 28px;
     margin-bottom: 10px;
   }
@@ -45,7 +44,7 @@
   }
   
   .memory-match-restart-btn {
-    background-color: #ff6b6b;
+    background-color: #3a868a;
     color: white;
     border: none;
     padding: 8px 16px;

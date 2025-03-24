@@ -106,7 +106,7 @@ const MemoryMatch = () => {
         <div className="memory-match-header"> <br></br><br></br>
           <h2>Memory Match</h2>
           <div className="memory-match-stats">
-            <div className='blah'>
+            <div className="blah">
               <span>Moves: {moves}</span>
               <span><button className="memory-match-restart-btn" onClick={initializeGame}>Restart Game</button></span>
               <span>Time: {formatTime(elapsedTime)}</span>

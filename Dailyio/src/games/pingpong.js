@@ -179,9 +179,25 @@ const PingPong = () => {
       setGameStarted(true);
     }, 100);
   };
-  
+  const gradientKeyframes = `
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `;
   return (
     <div className="pingpong-container">
+      <style jsx>{gradientKeyframes}</style>
       <div className="pingpong-header">
         <h2>Ping Pong</h2>
         <p>Control your paddle with the mouse to defeat the computer</p>
@@ -214,10 +230,10 @@ const PingPong = () => {
       
       <style jsx>{`
         .pingpong-container {
+        padding-top:100px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 20px;
           max-width: 800px;
           margin: 0 auto;
           font-family: Arial, sans-serif;
@@ -240,7 +256,7 @@ const PingPong = () => {
         }
         
         .pingpong-canvas {
-          background: linear-gradient(to right, rgba(73, 209, 190, 0.3), rgba(93, 129, 255, 0.3));
+          background: linear-gradient(to right, rgba(29, 77, 70, 0.23), rgba(59, 67, 97, 0.75));
           border-radius: 10px;
           display: none;
           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);

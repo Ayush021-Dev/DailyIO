@@ -13,10 +13,10 @@ import BrickBreaker from "./games/brick";
 import WhackAMole from "./games/whack";
 import Snake from "./games/snake";
 import Game2048 from "./games/2048";
-import FlappyBird from "./games/flappy";
 import MemoryMatch from "./games/memory";
 import SlidingPuzzle from "./games/puzzle";
 import PingPong from "./games/pingpong";
+import Tetris from "./games/tetris";
 // import Converter from "./converter";
 // import News from "./news";
 // import Stock from "./stock";
@@ -54,7 +54,7 @@ function App() {
         <Route path="/games/whack" element={<NavbarWrapper><WhackAMole /></NavbarWrapper>} />
         <Route path="/games/snake" element={<NavbarWrapper><Snake /></NavbarWrapper>} />
         <Route path="/games/2048" element={<NavbarWrapper><Game2048 /></NavbarWrapper>} />
-        <Route path="/games/flappy" element={<NavbarWrapper><FlappyBird /></NavbarWrapper>} />
+        <Route path="/games/tetris" element={<NavbarWrapper><Tetris /></NavbarWrapper>} />
         <Route path="/games/memory" element={<NavbarWrapper><MemoryMatch /></NavbarWrapper>} />
         <Route path="/games/puzzle" element={<NavbarWrapper><SlidingPuzzle /></NavbarWrapper>} />
         <Route path="/games/pingpong" element={<NavbarWrapper><PingPong /></NavbarWrapper>} />

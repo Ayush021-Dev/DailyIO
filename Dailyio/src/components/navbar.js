@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const hideNavbarPaths = ["/", "/login", "/signup"];
   if (hideNavbarPaths.includes(location.pathname)) {
     return null;
   }
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    
   };
 
   return (
@@ -20,7 +21,7 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* Logo */}
         <div className="navbar-logo">
-          <Link to="/">
+          <Link to="../">
             <h1>Daily<span>IO</span></h1>
           </Link>
         </div>
@@ -38,7 +39,10 @@ const Navbar = () => {
         <div className={isMenuOpen ? "navbar-links active" : "navbar-links"}>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to=".." onClick={(e) => {
+                e.preventDefault();
+                navigate(-1);
+              }}>Back</Link>
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
