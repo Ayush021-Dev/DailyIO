@@ -285,7 +285,7 @@ const SlidingPuzzle = () => {
         }
         
         .puzzle-tile {
-          background: linear-gradient(135deg, rgb(104, 163, 206), rgb(97, 161, 179));
+          background: linear-gradient(135deg, rgb(40, 82, 112), rgb(100, 113, 117));
           border-radius: 8px;
           display: flex;
           justify-content: center;

@@ -17,9 +17,9 @@ import MemoryMatch from "./games/memory";
 import SlidingPuzzle from "./games/puzzle";
 import PingPong from "./games/pingpong";
 import Tetris from "./games/tetris";
-// import Converter from "./converter";
-// import News from "./news";
-// import Stock from "./stock";
+import Stock from "./stock";
+import News from "./news";
+import CurrencyConverter from "./converter";
 // import UnitConverter from "./unitconverter";
 
 const NavbarWrapper = ({ children }) => {
@@ -58,11 +58,11 @@ function App() {
         <Route path="/games/memory" element={<NavbarWrapper><MemoryMatch /></NavbarWrapper>} />
         <Route path="/games/puzzle" element={<NavbarWrapper><SlidingPuzzle /></NavbarWrapper>} />
         <Route path="/games/pingpong" element={<NavbarWrapper><PingPong /></NavbarWrapper>} />
+        <Route path="/stock" element={<NavbarWrapper><Stock /></NavbarWrapper>} />
+        <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} />
+        <Route path="/converter" element={<NavbarWrapper><CurrencyConverter /></NavbarWrapper>} />
         
         {/* <Route path="/aboutus" element={<NavbarWrapper><AboutUs /></NavbarWrapper>} /> */}
-        {/* <Route path="/converter" element={<NavbarWrapper><Converter /></NavbarWrapper>} /> */}
-        {/* <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} /> */}
-        {/* <Route path="/stock" element={<NavbarWrapper><Stock /></NavbarWrapper>} /> */}
         {/* <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} /> */}
       </Routes>
     </Router>

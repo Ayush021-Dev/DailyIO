@@ -1,60 +1,122 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./converter.css";
 
-const Converter = () => {
+const CurrencyConverter = () => {
   const [currencyAmount, setCurrencyAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState("INR");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [result, setResult] = useState("Result: ");
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const convertCurrency = () => {
-    // Dummy conversion rates
-    const conversionRates = {
-      INR: { USD: 0.012, EUR: 0.011, GBP: 0.0097, JPY: 1.65 },
-      USD: { INR: 82.5, EUR: 0.92, GBP: 0.77, JPY: 130.2 },
-      EUR: { INR: 90, USD: 1.09, GBP: 0.84, JPY: 140.5 },
-      GBP: { INR: 104, USD: 1.3, EUR: 1.19, JPY: 167.8 },
-      JPY: { INR: 0.6, USD: 0.0077, EUR: 0.0071, GBP: 0.006 }
+  // Note: Replace with your actual ExchangeRate-API key
+  const API_KEY = '6e775e2f33d6982ad50746fc';
+
+  // Supported currencies
+  const currencies = [
+    'INR', 'USD', 'EUR', 'GBP', 'JPY', 
+    'AUD', 'CAD', 'CHF', 'CNY', 'SAR'
+  ];
+
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${fromCurrency}`
+        );
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch exchange rates');
+        }
+        
+        const data = await response.json();
+        setExchangeRates(data.conversion_rates);
+        setIsLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setIsLoading(false);
+      }
     };
 
+    fetchExchangeRates();
+    // Refresh rates every 30 minutes
+    const intervalId = setInterval(fetchExchangeRates, 30 * 60 * 1000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [fromCurrency, API_KEY]);
+
+  const convertCurrency = () => {
     if (fromCurrency === toCurrency) {
-      setResult("Result: " + currencyAmount);
+      setResult(`Result: ${currencyAmount}`);
       return;
     }
 
-    const rate = conversionRates[fromCurrency]?.[toCurrency] || 1;
-    setResult(`Result: ${(currencyAmount * rate).toFixed(2)} ${toCurrency}`);
+    if (isLoading) {
+      setResult("Fetching latest rates...");
+      return;
+    }
+
+    if (error) {
+      setResult("Error fetching exchange rates");
+      return;
+    }
+
+    const rate = exchangeRates[toCurrency];
+    if (!rate) {
+      setResult("Conversion rate not available");
+      return;
+    }
+
+    const convertedAmount = (currencyAmount * rate).toFixed(2);
+    setResult(`Result: ${convertedAmount} ${toCurrency}`);
   };
 
   return (
-    <div className="converter-container">
-      <div className="converter-section">
-        <h2>Currency Converter</h2>
+    <div className="currency-converter">
+      <div className="currency-converter__section">
+        <h1 align="center">Currency Converter</h1>
         <input
+          className="currency-converter__input"
           type="number"
           value={currencyAmount}
           onChange={(e) => setCurrencyAmount(e.target.value)}
           placeholder="Amount"
+          disabled={isLoading}
         />
-        <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
-          <option value="INR">INR</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
-          <option value="JPY">JPY</option>
+        <select 
+          className="currency-converter__select"
+          value={fromCurrency} 
+          onChange={(e) => setFromCurrency(e.target.value)}
+          disabled={isLoading}
+        >
+          {currencies.map(currency => (
+            <option key={currency} value={currency}>{currency}</option>
+          ))}
         </select>
-        <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
-          <option value="EUR">EUR</option>
-          <option value="INR">INR</option>
-          <option value="USD">USD</option>
-          <option value="GBP">GBP</option>
-          <option value="JPY">JPY</option>
+        <select 
+          className="currency-converter__select"
+          value={toCurrency} 
+          onChange={(e) => setToCurrency(e.target.value)}
+          disabled={isLoading}
+        >
+          {currencies.map(currency => (
+            <option key={currency} value={currency}>{currency}</option>
+          ))}
         </select>
-        <button className="convert-button" onClick={convertCurrency}>Convert</button>
-        <div className="result">{result}</div>
+        <button 
+          className="currency-converter__button" 
+          onClick={convertCurrency}
+          disabled={isLoading || !currencyAmount}
+        >
+          {isLoading ? 'Updating Rates...' : 'Convert'}
+        </button>
+        <div className="currency-converter__result">{result}</div>
+        {error && <div className="currency-converter__error">{error}</div>}
       </div>
     </div>
   );
 };
 
-export default Converter;
+export default CurrencyConverter;

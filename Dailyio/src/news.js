@@ -1,80 +1,92 @@
-import React from "react";
-import "./news.css"; // Import the CSS file
+import React, { useState, useEffect } from 'react';
+import './news.css';
 
 const News = () => {
-  const newsArticles = [
-    {
-      title: "Global Climate Summit Concludes with New Environmental Agreements",
-      excerpt:
-        "World leaders reached consensus on new climate action targets during the final day of the International Climate Summit in Geneva.",
-      date: "Feb 4, 2025",
-      category: "World",
-    },
-    {
-      title: "Breakthrough in Quantum Computing Achieves New Milestone",
-      excerpt:
-        "Scientists announce successful demonstration of a 1000-qubit quantum computer, marking a significant advancement in quantum technology.",
-      date: "Feb 4, 2025",
-      category: "Technology",
-    },
-    {
-      title: "Major Sports League Expands to New International Markets",
-      excerpt:
-        "The Global Basketball Association announces plans to establish new teams in Asia and Europe, marking historic expansion.",
-      date: "Feb 4, 2025",
-      category: "Sports",
-    },
-    {
-      title: "Renewable Energy Investment Reaches Record High",
-      excerpt:
-        "Global investment in renewable energy projects surpassed $500 billion in 2024, setting new records for sustainable development.",
-      date: "Feb 4, 2025",
-      category: "Business",
-    },
-    {
-      title: "New Space Telescope Reveals Unprecedented Views of Distant Galaxies",
-      excerpt:
-        "Astronomers share first images from the next-generation space telescope, showing previously unseen details of galaxy formation.",
-      date: "Feb 4, 2025",
-      category: "Science",
-    },
-    {
-      title: "Artificial Intelligence Makes Breakthrough in Medical Diagnosis",
-      excerpt:
-        "New AI system demonstrates unprecedented accuracy in early disease detection, promising to transform healthcare.",
-      date: "Feb 4, 2025",
-      category: "Technology",
-    },
-  ];
+  const [newsArticles, setNewsArticles] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('general');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const categories = ['general', 'technology', 'business', 'science', 'sports'];
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://newsapi.org/v2/top-headlines?category=${activeCategory}&language=en&apiKey=7617166f1be449859f343ccf574d70a9`
+        );
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+        
+        const data = await response.json();
+        setNewsArticles(data.articles.slice(0, 6)); // Limit to 6 articles
+        setIsLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setIsLoading(false);
+      }
+    };
+    
+    fetchNews();
+  }, [activeCategory]);
+
+  if (error) {
+    return <div className="news-error-message">Error: {error}</div>;
+  }
 
   return (
-    <div className="news-container">
-      <div className="header">
-        <h1>Global News Dashboard</h1>
-        <p>Your daily source for world news and updates</p>
-      </div>
-
-      <div className="category-tabs">
-        {["World", "Technology", "Sports", "Business", "Science"].map(
-          (category) => (
-            <div key={category} className="category-tab">
-              {category}
+    <div className="news-dashboard-page">
+     <br></br><br></br> <div className="news-container">
+        <div className="news-header">
+          <h2>Global News Dashboard</h2>
+          <p>Real-time news from around the world</p>
+        </div>
+        
+        <div className="news-category-tabs">
+          {categories.map((category) => (
+            <div 
+              key={category} 
+              className={`news-category-tab ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
             </div>
-          )
-        )}
-      </div>
-
-      <div className="news-grid">
-        {newsArticles.map((news, index) => (
-          <div className="news-card" key={index}>
-            <div className="news-title">{news.title}</div>
-            <div className="news-excerpt">{news.excerpt}</div>
-            <div className="news-meta">
-              <span className="news-date">{news.date}</span>
-              <span className="category-label">{news.category}</span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        
+        <div className="news-grid">
+          {isLoading ? (
+            <div className="news-loading">Loading news...</div>
+          ) : (
+            newsArticles.map((news, index) => (
+              <div className="news-card" key={index}>
+                <div className="news-title">{news.title}</div>
+                <div className="news-excerpt">{news.description || 'No description available'}</div>
+                
+                <div className="news-meta">
+                  <span className="news-date">
+                    {new Date(news.publishedAt).toLocaleDateString()}
+                  </span>
+                  <span className="news-category-label">{activeCategory.toUpperCase()}</span>
+                </div>
+                
+                {news.url && (
+                  <a 
+                    href={news.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="news-read-more"
+                  >
+                    Read More
+                  </a>
+                )}
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

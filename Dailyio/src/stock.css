@@ -1,38 +1,30 @@
-:root {
-    --russian-violet: #2a1e5c;
-    --night: #0a0f0d;
-    --red-crayola: #ee4266;
-    --thistle: #f0d3f7;
-    --tea-green: #caffd0;
-    
-    --russian-violet-80: rgba(42, 30, 92, 0.8);
-    --night-60: rgba(10, 15, 13, 0.6);
-    --thistle-15: rgba(240, 211, 247, 0.15);
+.stock-page {
+  background-size: 400% 400%;
+  min-height: 100vh;
+  padding: 20px 20px;
+  background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+  animation: stockPageGradientBG 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: var(--tea-green);
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
+@keyframes stockPageGradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
 
 .stock-dashboard {
-    background-color: var(--thistle);
+    background-color: rgb(85, 198, 223);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     max-width: 1200px;
+    width: 100%;
     margin: auto;
-    border: 3px solid var(--night);
-}
-
-h1 {
-    color: var(--russian-violet);
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2em;
+    border: 3px solid ;
 }
 
 .stock-grid {
@@ -50,6 +42,8 @@ h1 {
     text-align: center;
     transition: transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 }
 
 .stock-card:hover {
@@ -64,6 +58,12 @@ h1 {
     color: var(--russian-violet);
 }
 
+.stock-name {
+    color: #6b7280;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
 .stock-price {
     font-size: 1.8em;
     color: var(--night);
@@ -75,6 +75,7 @@ h1 {
     padding: 8px;
     border-radius: 4px;
     display: inline-block;
+    align-self: center;
 }
 
 .positive {
@@ -85,4 +86,19 @@ h1 {
 .negative {
     color: var(--red-crayola);
     background-color: rgba(238, 66, 102, 0.1);
+}
+
+.loading {
+    text-align: center;
+    color: var(--russian-violet);
+    font-size: 1.2em;
+    padding: 20px;
+}
+
+.error-message {
+    color: var(--red-crayola);
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(238, 66, 102, 0.1);
+    border-radius: 8px;
 }

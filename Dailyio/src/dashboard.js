@@ -33,7 +33,7 @@ const Dashboard = () => {
                                 <div className="dashboard-feature">
                                     <Link to="/weather">
                                         <h3>Weather</h3>
-                                        <p>Current: 72°F Sunny</p>
+                                        <p>Current Temperatures</p>
                                     </Link>
                                 </div>
                                 <div className="dashboard-feature">
@@ -55,7 +55,7 @@ const Dashboard = () => {
                                     </Link>
                                 </div>
                                 <div className="dashboard-feature">
-                                    <Link to="/currency">
+                                    <Link to="/converter">
                                         <h3>Currency</h3>
                                         <p>Exchange Rates</p>
                                     </Link>
