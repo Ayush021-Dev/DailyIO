@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Use a more specific selector for this page */
 .home-page {
     margin: 0;
     padding: 0;
@@ -98,7 +97,6 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Rename animation keyframes to avoid conflicts */
 @keyframes home-fadeInScale {
     from {
         opacity: 0;
