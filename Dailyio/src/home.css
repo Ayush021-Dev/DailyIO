@@ -14,7 +14,6 @@
     overflow: hidden;
 }
 
-/* Prefix all classes with 'home-' to avoid conflicts */
 .home-wrapper {
     display: flex;
     flex-direction: column;
@@ -31,47 +30,6 @@
     width: 100%;
     gap: 20px;
     padding: 0 20px;
-}
-
-.home-quote-section, .home-fun-facts {
-    flex: 1;
-    max-width: 400px;
-}
-
-.home-card {
-    background-color: rgba(227, 190, 130, 0.8);
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.home-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.home-quote, .home-fun-fact {
-    background: rgba(250, 215, 160, 1);
-    color: #2C3E50;
-    margin-top: 15px;
-    padding: 25px;
-    border-radius: 15px;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 1.1em;
-    line-height: 1.6;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.home-quote:hover, .home-fun-fact:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
 .home-landing-container {
