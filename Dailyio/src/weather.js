@@ -7,7 +7,7 @@ const WeatherWidget = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_KEY = '9216f058ead5840f20e16d510bb1ce7b'; // Replace with your OpenWeatherMap API key
+  const API_KEY = '9216f058ead5840f20e16d510bb1ce7b'; // OpenWeatherMap API key
 
   const fetchWeather = async () => {
     if (!city.trim()) return;
@@ -43,7 +43,6 @@ const WeatherWidget = () => {
     return `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
   };
 
-  // Function to determine weather-based class
   const getWeatherClass = () => {
     if (!weather) return '';
     const mainWeather = weather.weather[0].main.toLowerCase();

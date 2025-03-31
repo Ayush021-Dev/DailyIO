@@ -18,7 +18,6 @@ const Dashboard = () => {
                     <h2>What you wanna do?</h2>
                 </header>
 
-                {/* Dashboard Features */}
                 <div className="dashboard-grid">
                     <br></br>
                     <div className="dashboard-main-content">

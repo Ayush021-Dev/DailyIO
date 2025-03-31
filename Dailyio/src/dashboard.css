@@ -4,23 +4,20 @@
   box-sizing: border-box;
   font-family: 'Poppins', 'Inter', sans-serif;
 }
+  .dashboard-page {
+    background-size: 400% 400%;
+    min-height: 100vh;
+    padding: 20px 20px;
+    background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+    animation: dashboardGradientBG 15s ease infinite;
+  }
 
-/* Background Animation */
-.dashboard-page {
-  background-size: 400% 400%;
-  min-height: 100vh;
-  padding: 20px 20px;
-  background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
-  animation: dashboardGradientBG 15s ease infinite;
-}
+  @keyframes dashboardGradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-@keyframes dashboardGradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Container */
 .dashboard-container {
   position: relative;
   padding-top: 50px;
@@ -30,11 +27,9 @@
  
 }
 
-/* Header */
 .dashboard-header {
   
   text-align: center;
-  /* padding: 20px; */
   margin-top: 80px;
 }
 
@@ -49,7 +44,6 @@
   color: #FFD93D;
 }
 
-/* Dashboard Grid */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -58,7 +52,6 @@
   margin: 0 auto;
 }
 
-/* Cards */
 .dashboard-card {
   background: rgba(183, 210, 244, 0.95);
   border-radius: 20px;
@@ -66,14 +59,12 @@
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
 }
 
-/* Feature Grid */
 .dashboard-feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
-/* Features */
 .dashboard-feature {
   background: linear-gradient(135deg, #6CD0FF 0%, #1A91DA 100%);
   padding: 25px;

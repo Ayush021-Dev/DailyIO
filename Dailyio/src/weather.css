@@ -1,5 +1,3 @@
-/* WeatherWidget.css */
-/* Using specific class names to avoid conflicts with other components */
 .weather-widget-wrapper {
     height: 100vh;
     display: flex;
@@ -28,7 +26,6 @@
     overflow: hidden;
 }
 
-/* Weather-based backgrounds */
 .clear {
     background: rgba(255, 223, 105, 0.7); /* Sunny */
 }

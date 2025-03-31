@@ -29,12 +29,10 @@ const ToDo = () => {
 
   return (
     <div className="todo-page">
-            {/* To-Do List Container */}
       <div className="todo-container">
         <div className="todo-card">
           <h2 className="todo-header">To-Do List</h2>
 
-          {/* Input Field */}
           <input
             type="text"
             className="todo-input"
@@ -44,7 +42,6 @@ const ToDo = () => {
             onKeyDown={(e) => e.key === "Enter" && addTask()}
           />
 
-          {/* Task List */}
           <div className="todo-list">
             {tasks.map((task) => (
               <div key={task.id} className={`todo-item ${task.completed ? "completed" : ""}`}>
