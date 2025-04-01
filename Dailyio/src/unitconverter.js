@@ -36,12 +36,6 @@ const UnitConverter = () => {
         }
     };
 
-    const handleBestUnit = () => {
-        const best = convert(parseFloat(inputValue)).from(fromUnit).toBest();
-        setResult(`Best unit: ${best.val.toFixed(2)} ${best.unit}`);
-        setShowBest(true);
-    };
-
     const swapUnits = () => {
         setFromUnit(toUnit);
         setToUnit(fromUnit);
@@ -112,9 +106,6 @@ const UnitConverter = () => {
 
                 <div className="button-group">
                     <button type="submit">Convert</button>
-                    <button type="button" onClick={handleBestUnit} disabled={!inputValue}>
-                        Suggest Best Unit
-                    </button>
                 </div>
             </form>
 
