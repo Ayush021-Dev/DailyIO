@@ -4,15 +4,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', 'Inter', sans-serif;
 }
-  .dashboard-page {
-    background-size: 400% 400%;
-    min-height: 100vh;
-    padding: 20px 20px;
-    background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
-    animation: dashboardGradientBG 15s ease infinite;
-  }
-
-  @keyframes dashboardGradientBG {
+   @keyframes dashboardGradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }

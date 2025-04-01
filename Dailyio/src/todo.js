@@ -3,9 +3,9 @@ import "./todo.css";
 
 const ToDo = () => {
   const [tasks, setTasks] = useState([
-    { id: 1, text: "📝 Complete daily report", completed: false },
-    { id: 2, text: "🏃‍♂️ Evening workout", completed: false },
-    { id: 3, text: "📚 Read chapter 5", completed: false },
+    { id: 1, text: "📝 Complete Daily Assignment", completed: false },
+    { id: 2, text: "🏃‍♂️ Evening Run", completed: false },
+    { id: 3, text: "📚 Learn Module 5", completed: false },
   ]);
 
   const [newTask, setNewTask] = useState("");

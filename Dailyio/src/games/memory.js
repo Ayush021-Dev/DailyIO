@@ -9,15 +9,12 @@ const MemoryMatch = () => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
 
-  // Define initializeGame with useCallback and move cardIcons inside
   const initializeGame = useCallback(() => {
-    // Define card icons inside the callback to avoid dependency issues
     const cardIcons = [
       '🍎', '🍌', '🍒', '🍓', '🍋', '🍉', '🍇', '🍊',
       '🥝', '🍍', '🥭', '🍑'
     ];
 
-    // Create pairs of cards
     const cardPairs = [...cardIcons, ...cardIcons]
       .sort(() => Math.random() - 0.5)
       .map((icon, index) => ({
@@ -36,14 +33,11 @@ const MemoryMatch = () => {
     setEndTime(null);
   }, []);
 
-  // Initialize game on component mount
   useEffect(() => {
     initializeGame();
   }, [initializeGame]);
 
-  // Handle card click
   const handleCardClick = (id) => {
-    // Ignore click if game is over or card is already flipped/matched
     if (
       gameOver ||
       flippedCards.length >= 2 ||
@@ -53,11 +47,9 @@ const MemoryMatch = () => {
       return;
     }
 
-    // Add card to flipped cards
     const newFlippedCards = [...flippedCards, id];
     setFlippedCards(newFlippedCards);
 
-    // If two cards are flipped, check for a match
     if (newFlippedCards.length === 2) {
       setMoves(moves + 1);
 
@@ -66,18 +58,15 @@ const MemoryMatch = () => {
       const secondCard = cards.find(card => card.id === secondCardId);
 
       if (firstCard.icon === secondCard.icon) {
-        // If cards match, add them to matched cards
         const newMatchedCards = [...matchedCards, firstCardId, secondCardId];
         setMatchedCards(newMatchedCards);
         setFlippedCards([]);
 
-        // Check if all cards are matched
         if (newMatchedCards.length === cards.length) {
           setGameOver(true);
           setEndTime(Date.now());
         }
       } else {
-        // If cards don't match, flip them back after a delay
         setTimeout(() => {
           setFlippedCards([]);
         }, 1000);
@@ -85,7 +74,6 @@ const MemoryMatch = () => {
     }
   };
 
-  // Format time for display
   const formatTime = (milliseconds) => {
     if (!milliseconds) return '00:00';
     const seconds = Math.floor(milliseconds / 1000);
@@ -93,7 +81,6 @@ const MemoryMatch = () => {
     return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
   };
 
-  // Calculate elapsed time
   const elapsedTime = endTime
     ? endTime - startTime
     : startTime

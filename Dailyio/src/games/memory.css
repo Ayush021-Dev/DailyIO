@@ -123,7 +123,6 @@
     margin-top: 0;
   }
   
-  /* Responsive design */
   @media (max-width: 768px) {
     .memory-match-grid {
       grid-template-columns: repeat(4, 1fr);

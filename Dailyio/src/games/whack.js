@@ -10,10 +10,8 @@ const WhackAMole = () => {
   const timerRef = useRef(null);
   const moleTimerRef = useRef(null);
 
-  // Mole positions (9 holes in a 3x3 grid)
   const molePositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-  // Start the game
   const startGame = () => {
     setScore(0);
     setTimeLeft(30);
@@ -31,7 +29,6 @@ const WhackAMole = () => {
     }, 1000);
   };
 
-  // End the game
   const endGame = () => {
     setGameStarted(false);
     setActiveMole(null);
@@ -39,7 +36,6 @@ const WhackAMole = () => {
     if (moleTimerRef.current) clearInterval(moleTimerRef.current);
   };
 
-  // Show a random mole
   const showRandomMole = () => {
     if (moleTimerRef.current) clearInterval(moleTimerRef.current);
     
@@ -47,27 +43,23 @@ const WhackAMole = () => {
       const randomPosition = Math.floor(Math.random() * molePositions.length);
       setActiveMole(randomPosition);
       
-      // Set a timeout to hide the mole after a random time
       setTimeout(() => {
         setActiveMole(null);
       }, gameSpeed * 0.8);
     }, gameSpeed);
   };
 
-  // Whack a mole
   const whackMole = (position) => {
     if (position === activeMole) {
       setScore(prevScore => prevScore + 1);
       setActiveMole(null);
       
-      // Speed up the game slightly as score increases
       if (score > 0 && score % 5 === 0) {
         setGameSpeed(prevSpeed => Math.max(prevSpeed - 50, 600));
       }
     }
   };
 
-  // Clean up on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);

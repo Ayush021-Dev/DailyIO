@@ -7,7 +7,6 @@ const PingPong = () => {
   const [winner, setWinner] = useState('');
   const canvasRef = useRef(null);
   
-  // Game constants
   const PADDLE_HEIGHT = 80;
   const PADDLE_WIDTH = 10;
   const BALL_RADIUS = 8;
@@ -27,13 +26,11 @@ const PingPong = () => {
     let playerPaddleY = canvas.height / 2 - PADDLE_HEIGHT / 2;
     let computerPaddleY = canvas.height / 2 - PADDLE_HEIGHT / 2;
     
-    // Track mouse position for player paddle
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const mouseY = e.clientY - rect.top;
       playerPaddleY = mouseY - (PADDLE_HEIGHT / 2);
       
-      // Keep paddle within canvas boundaries
       if (playerPaddleY < 0) {
         playerPaddleY = 0;
       }
@@ -44,13 +41,10 @@ const PingPong = () => {
     
     canvas.addEventListener('mousemove', handleMouseMove);
     
-    // Game loop
     const gameLoop = setInterval(() => {
-      // Clear canvas
       ctx.fillStyle = 'rgba(73, 209, 190, 0.2)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Draw middle line
       ctx.beginPath();
       ctx.setLineDash([5, 15]);
       ctx.moveTo(canvas.width / 2, 0);
@@ -59,29 +53,22 @@ const PingPong = () => {
       ctx.stroke();
       ctx.setLineDash([]);
       
-      // Draw paddles
       ctx.fillStyle = 'white';
-      // Player paddle
       ctx.fillRect(0, playerPaddleY, PADDLE_WIDTH, PADDLE_HEIGHT);
-      // Computer paddle
       ctx.fillRect(canvas.width - PADDLE_WIDTH, computerPaddleY, PADDLE_WIDTH, PADDLE_HEIGHT);
       
-      // Draw ball
       ctx.beginPath();
       ctx.arc(ballX, ballY, BALL_RADIUS, 0, Math.PI * 2);
       ctx.fillStyle = '#FFD700';
       ctx.fill();
       
-      // Move ball
       ballX += ballSpeedX;
       ballY += ballSpeedY;
       
-      // Ball collision with top and bottom walls
       if (ballY < BALL_RADIUS || ballY > canvas.height - BALL_RADIUS) {
         ballSpeedY = -ballSpeedY;
       }
       
-      // Computer paddle AI
       const computerSpeed = 4;
       const computerCenter = computerPaddleY + (PADDLE_HEIGHT / 2);
       if (computerCenter < ballY - 35) {
@@ -90,7 +77,6 @@ const PingPong = () => {
         computerPaddleY -= computerSpeed;
       }
       
-      // Ball collision with paddles
       if (
         ballX < PADDLE_WIDTH + BALL_RADIUS && 
         ballY > playerPaddleY && 
@@ -111,9 +97,7 @@ const PingPong = () => {
         ballSpeedY = deltaY * 0.25;
       }
       
-      // Score update when ball passes paddles
       if (ballX < 0) {
-        // Computer scores
         const newScore = { ...score, computer: score.computer + 1 };
         setScore(newScore);
         
@@ -127,7 +111,6 @@ const PingPong = () => {
       }
       
       if (ballX > canvas.width) {
-        // Player scores
         const newScore = { ...score, player: score.player + 1 };
         setScore(newScore);
         
@@ -140,21 +123,19 @@ const PingPong = () => {
         }
       }
       
-      // Draw scores
       ctx.font = '24px Arial';
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
       ctx.fillText(score.player.toString(), canvas.width / 4, 30);
       ctx.fillText(score.computer.toString(), 3 * canvas.width / 4, 30);
       
-    }, 1000 / 60); // 60 FPS
+    }, 1000 / 60); 
     
-    // Reset ball to center
     const resetBall = () => {
       ballX = canvas.width / 2;
       ballY = canvas.height / 2;
       ballSpeedY = 2;
-      ballSpeedX = ballSpeedX > 0 ? 5 : -5; // Maintain direction but reset speed
+      ballSpeedX = ballSpeedX > 0 ? 5 : -5;
     };
     
     return () => {

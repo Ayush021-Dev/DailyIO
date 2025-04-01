@@ -13,10 +13,10 @@ const DailyIO = () => {
 
             <div className="home-auth-container">
               <div className="home-button-row">
-                <Link to="/login" className="home-guest-btn">Log In</Link>
-                <Link to="/signup" className="home-guest-btn">Sign In</Link>
+                <Link to="/login" className="home-btn">Log In</Link>
+                <Link to="/signup" className="home-btn">Sign In</Link>
               </div>
-              <Link to="/dashboard" className="home-guest-btn">Log In as Guest</Link>
+              <Link to="/dashboard" className="home-btn">Log In as Guest</Link>
             </div>
           </div>
         </div>

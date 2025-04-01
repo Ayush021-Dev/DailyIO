@@ -54,11 +54,6 @@
     opacity: 0;
     transition: transform 0.3s ease;
 }
-
-.home-logo:hover {
-    transform: scale(1.1) rotate(5deg);
-}
-
 .home-title {
     font-size: 1.2rem;
     color: #333;
@@ -78,7 +73,7 @@
     gap: 20px;
 }
 
-.home-btn, .home-guest-btn {
+.home-btn {
     flex: 1;
     padding: 12px 20px;
     font-size: 1rem;
@@ -91,7 +86,7 @@
     text-decoration:none;
 }
 
-.home-btn:hover, .home-guest-btn:hover {
+.home-btn:hover {
     background-color: #5a5a5a;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
