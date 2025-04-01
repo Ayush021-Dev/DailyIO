@@ -14,6 +14,10 @@ const Login = () => {
             </Link>
           </div>
 
+          <div className="auth-signup-link">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </div>
+
           <form>
             <div className="auth-form-group">
               <label htmlFor="email" className="auth-label">Email</label>
@@ -43,10 +47,6 @@ const Login = () => {
           <button className="auth-google-login">
             <b>G</b> Continue with Google
           </button>
-
-          <div className="auth-signup-link">
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </div>
 
         </div>
       </div>

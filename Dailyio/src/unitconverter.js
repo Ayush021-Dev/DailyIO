@@ -1,50 +1,45 @@
 import { useState } from "react";
+import convert from "convert-units";
 import "./unitconverter.css";
 
-const Unitconverter = () => {
-    const [conversionType, setConversionType] = useState("length");
-    const [fromUnit, setFromUnit] = useState("meters");
-    const [toUnit, setToUnit] = useState("kilometers");
+const UnitConverter = () => {
+    const [measure, setMeasure] = useState("length");
+    const [fromUnit, setFromUnit] = useState("m");
+    const [toUnit, setToUnit] = useState("km");
     const [inputValue, setInputValue] = useState("");
     const [result, setResult] = useState("");
+    const [showBest, setShowBest] = useState(false);
 
-    const conversions = {
-        length: {
-            meters: 1,
-            kilometers: 0.001,
-            feet: 3.28084,
-            miles: 0.000621371
-        },
-        mass: {
-            grams: 1,
-            kilograms: 0.001,
-            pounds: 0.00220462,
-            ounces: 0.035274
-        },
-        temperature: {
-            celsiusToFahrenheit: (c) => (c * 9/5) + 32,
-            fahrenheitToCelsius: (f) => (f - 32) * 5/9,
-            celsiusToKelvin: (c) => c + 273.15,
-            kelvinToCelsius: (k) => k - 273.15
-        }
-    };
+    const measures = convert().measures();
+    const units = convert().possibilities(measure);
+    const allUnits = convert().list(measure);
 
     const handleConvert = (e) => {
         e.preventDefault();
-        if (inputValue === "" || isNaN(inputValue)) {
-            alert("Please enter a valid number.");
+        if (!inputValue || isNaN(inputValue)) {
+            alert("Please enter a valid number");
             return;
         }
 
-        let output;
-        if (conversionType === "temperature") {
-            const key = fromUnit + "To" + toUnit.charAt(0).toUpperCase() + toUnit.slice(1);
-            output = conversions.temperature[key] ? conversions.temperature[key](parseFloat(inputValue)) : "Invalid conversion";
-        } else {
-            output = (parseFloat(inputValue) * conversions[conversionType][toUnit]) / conversions[conversionType][fromUnit];
+        try {
+            let output;
+            if (measure === "temperature") {
+                output = convert(parseFloat(inputValue)).from(fromUnit).to(toUnit);
+            } else {
+                output = convert(parseFloat(inputValue)).from(fromUnit).to(toUnit);
+            }
+            
+            setResult(`${inputValue} ${fromUnit} = ${output.toFixed(4)} ${toUnit}`);
+            setShowBest(false);
+        } catch (error) {
+            setResult("Invalid conversion combination");
         }
+    };
 
-        setResult(`${output.toFixed(2)} ${toUnit}`);
+    const handleBestUnit = () => {
+        const best = convert(parseFloat(inputValue)).from(fromUnit).toBest();
+        setResult(`Best unit: ${best.val.toFixed(2)} ${best.unit}`);
+        setShowBest(true);
     };
 
     const swapUnits = () => {
@@ -56,45 +51,80 @@ const Unitconverter = () => {
         <div className="container">
             <h1>Unit Converter</h1>
             <form onSubmit={handleConvert}>
-                <label>Select conversion type:</label>
-                <select value={conversionType} onChange={(e) => setConversionType(e.target.value)}>
-                    <option value="length">Length</option>
-                    <option value="mass">Mass</option>
-                    <option value="temperature">Temperature</option>
-                </select>
+                <div className="form-group">
+                    <label>Measurement Type:</label>
+                    <select 
+                        value={measure} 
+                        onChange={(e) => {
+                            setMeasure(e.target.value);
+                            setFromUnit(convert().possibilities(e.target.value)[0]);
+                            setToUnit(convert().possibilities(e.target.value)[1]);
+                        }}
+                    >
+                        {measures.map(m => (
+                            <option key={m} value={m}>{m.charAt(0).toUpperCase() + m.slice(1)}</option>
+                        ))}
+                    </select>
+                </div>
 
-                <label>Enter value:</label>
-                <input
-                    type="number"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Enter value"
-                />
+                <div className="form-group">
+                    <label>Value:</label>
+                    <input
+                        type="number"
+                        step="any"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Enter value"
+                    />
+                </div>
 
-                <label>From:</label>
-                <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)}>
-                    {Object.keys(conversions[conversionType]).map((unit) => (
-                        <option key={unit} value={unit}>{unit}</option>
-                    ))}
-                </select>
+                <div className="unit-selectors">
+                    <div className="select-group">
+                        <label>From:</label>
+                        <select
+                            value={fromUnit}
+                            onChange={(e) => setFromUnit(e.target.value)}
+                        >
+                            {units.map(unit => {
+                                const desc = allUnits.find(u => u.abbr === unit);
+                                return <option key={unit} value={unit}>{desc?.plural || unit}</option>;
+                            })}
+                        </select>
+                    </div>
 
-                <button type="button" id="xbutt" onClick={swapUnits}>
-                    <img src="exchange.svg" alt="Swap Units" />
-                </button>
+                    <button type="button" className="swap-btn" onClick={swapUnits}>
+                        ↔
+                    </button>
 
-                <label>To:</label>
-                <select value={toUnit} onChange={(e) => setToUnit(e.target.value)}>
-                    {Object.keys(conversions[conversionType]).map((unit) => (
-                        <option key={unit} value={unit}>{unit}</option>
-                    ))}
-                </select>
+                    <div className="select-group">
+                        <label>To:</label>
+                        <select
+                            value={toUnit}
+                            onChange={(e) => setToUnit(e.target.value)}
+                        >
+                            {units.map(unit => {
+                                const desc = allUnits.find(u => u.abbr === unit);
+                                return <option key={unit} value={unit}>{desc?.plural || unit}</option>;
+                            })}
+                        </select>
+                    </div>
+                </div>
 
-                <button type="submit">Convert</button>
+                <div className="button-group">
+                    <button type="submit">Convert</button>
+                    <button type="button" onClick={handleBestUnit} disabled={!inputValue}>
+                        Suggest Best Unit
+                    </button>
+                </div>
             </form>
 
-            {result && <div className="result">{result}</div>}
+            {result && (
+                <div className={`result-box ${showBest ? "best-unit" : ""}`}>
+                    {result}
+                </div>
+            )}
         </div>
     );
 };
 
-export default Unitconverter;
+export default UnitConverter;

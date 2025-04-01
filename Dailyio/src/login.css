@@ -5,12 +5,10 @@
     --thistle: #F0D3F7;
     --tea-green: #CAFFD0;
     
-    /* Opacity Variants */
     --russian-violet-80: rgba(42, 30, 92, 0.8);
     --night-60: rgba(10, 15, 13, 0.6);
     --thistle-15: rgba(240, 211, 247, 0.15);
     
-    /* Custom Variables */
     --background-color: var(--tea-green);
     --text-color: var(--night);
     --card-bg: var(--thistle);
@@ -30,11 +28,14 @@
 }
 
 .auth-module .auth-page-wrapper {
-    background-color: var(--tea-green);
+    background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+    background-size: 400% 400%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    padding: 20px;
+    animation: dashboardGradientBG 15s ease infinite;
 }
 
 .auth-module .auth-login-container {

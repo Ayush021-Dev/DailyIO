@@ -1,110 +1,195 @@
+/* Define CSS variables for consistent theming */
 :root {
-    --primary: #2A1E5C;
-    --secondary: #EE4266;
-    --background: #CAFFD0;
-    --text: #0A0F0D;
-    --card-bg: #F0D3F7;
-    --hover: rgba(240, 211, 247, 0.15);
+    --primary: #2A1E5C;      /* Blue for primary elements */
+    --secondary: #EE4266;    /* Gray for secondary elements */
+    --hover: #f8f9fa;       /* Light gray for backgrounds */
+    --text: #212529;        /* Dark gray for text */
+    --card-bg: #F0D3F7;     /* White for card backgrounds */
 }
+
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--background);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-size: 400% 400%;
     min-height: 100vh;
-    margin: 0;
+    padding: 20px;
+    background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+    animation: gradientBG 15s ease infinite;
 }
 
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Main container styling */
 .container {
     width: 100%;
-    max-width: 500px;
-    background: var(--card-bg);
-    padding: 25px;
+    max-width: 600px;
+    margin: 80px auto 0; /* Top margin to clear the navbar */
+    padding: 30px;
+    background: var(--card-bg); /* White background for contrast */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border: 3px solid var(--primary);
 }
 
-h1 {
+/* Heading styling */
+.container h1 {
     text-align: center;
     color: var(--primary);
     margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
-label {
+/* Form layout */
+.container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: bold;
+    color: var(--text);
 }
 
-select, input {
-    width: calc(100% - 24px);
-    padding: 12px;
-    margin-bottom: 16px;
-    border: 1px solid var(--text);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: var(--card-bg);
-    transition: border-color 0.3s ease;
-}
-
-select:focus, input:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
-#xbutt {
-    display: block;
-    margin: 10px auto;
-    background-color: var(--secondary);
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#xbutt img {
-    width: 24px;
-    height: 24px;
-}
-
-button {
+.form-group input,
+.form-group select {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--primary);
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 5px rgba(108, 117, 125, 0.5); /* Matches --secondary */
+}
+
+/* Unit selectors layout */
+.unit-selectors {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Flexible columns with swap button in middle */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Select group styling */
+.select-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.select-group select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--primary);
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.select-group select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 5px rgba(108, 117, 125, 0.5);
+}
+
+/* Swap button styling */
+.swap-btn {
+    padding: 0.5rem 1rem;
     background-color: var(--secondary);
     color: white;
+    border-radius: 50%;
     border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.swap-btn:hover {
+    transform: rotate(180deg);
+    background-color: #0A0F0D;
+    color:#EE4266
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button-group button {
+    padding: 12px;
+    background-color: var(--secondary);
+    color: white;
     border-radius: 8px;
+    border: none;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: var(--text);
-    color: var(--secondary);
+.button-group button:hover {
+    background-color: #0A0F0D;
+    color: #EE4266;
 }
 
+.button-group button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Result box styling */
+.result-box {
+    margin-top: 2rem;
+    padding: 15px;
+    background-color: var(--hover);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.result-box.best-unit {
+    background-color: var(--secondary);
+    color: white;
+}
+
+/* Responsive adjustments */
 @media (max-width: 480px) {
     .container {
-        padding: 15px;
+        padding: 20px;
     }
 
-    h1 {
-        font-size: 1.5rem;
+    .unit-selectors {
+        grid-template-columns: 1fr; /* Stack vertically on small screens */
+        gap: 0.5rem;
     }
 
-    select, input {
-        padding: 10px;
-        font-size: 0.9rem;
-    }
-
-    button {
-        padding: 12px;
-        font-size: 0.9rem;
+    .swap-btn {
+        margin: 1rem 0;
     }
 }

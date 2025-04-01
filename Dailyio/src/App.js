@@ -20,7 +20,7 @@ import Tetris from "./games/tetris";
 import Stock from "./stock";
 import News from "./news";
 import CurrencyConverter from "./converter";
-// import UnitConverter from "./unitconverter";
+import UnitConverter from "./unitconverter";
 
 const NavbarWrapper = ({ children }) => {
   return (
@@ -61,9 +61,9 @@ function App() {
         <Route path="/stock" element={<NavbarWrapper><Stock /></NavbarWrapper>} />
         <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} />
         <Route path="/converter" element={<NavbarWrapper><CurrencyConverter /></NavbarWrapper>} />
-        
+        <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} />
         {/* <Route path="/aboutus" element={<NavbarWrapper><AboutUs /></NavbarWrapper>} /> */}
-        {/* <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} /> */}
+        {/*  */}
       </Routes>
     </Router>
   );
