@@ -13,7 +13,7 @@ const Stock = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Note: Replace with your actual Alpha Vantage API key
+  // Alpha Vantage API key
   const API_KEY = 'A2OW10D14RMRP8GQ';
 
   useEffect(() => {
@@ -52,13 +52,10 @@ const Stock = () => {
       }
     };
 
-    // Fetch initial data
     fetchStockData();
 
-    // Refresh data every 5 minutes
     const intervalId = setInterval(fetchStockData, 5 * 60 * 1000);
 
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, [stocks]);
 
@@ -73,7 +70,7 @@ const Stock = () => {
   return (
     <div className="stock-page">
       <div className="stock-dashboard">
-        <h1 align="center">Stock Market Tracker</h1>
+        <h1 align="center"  >Stock Market Tracker</h1>
         {isLoading ? (
           <div className="loading">Loading stock data...</div>
         ) : (

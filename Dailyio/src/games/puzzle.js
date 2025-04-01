@@ -6,24 +6,24 @@ const SlidingPuzzle = () => {
   const [gameOver, setGameOver] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
-  const [size, setSize] = useState(3); // 3x3 grid by default
+  const [size, setSize] = useState(3); 
 
-  // Initialize the board
+  
   const initializeGame = useCallback(() => {
-    // Create a solved board first (1 to size*size-1, and 0 for empty)
+    
     const newBoard = Array.from({ length: size * size }, (_, i) => (i + 1) % (size * size));
     
-    // Shuffle the board by making random valid moves
-    // This ensures the puzzle is always solvable
+    
+    
     let shuffledBoard = [...newBoard];
     let emptyIndex = size * size - 1;
     
-    // Make a large number of random moves to shuffle
+    
     for (let i = 0; i < 1000; i++) {
       const possibleMoves = getValidMoves(shuffledBoard, size);
       if (possibleMoves.length > 0) {
         const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-        // Swap the empty tile with the randomly chosen valid move
+        
         [shuffledBoard[emptyIndex], shuffledBoard[randomMove]] = 
           [shuffledBoard[randomMove], shuffledBoard[emptyIndex]];
         emptyIndex = randomMove;
@@ -37,51 +37,51 @@ const SlidingPuzzle = () => {
     setEndTime(null);
   }, [size]);
 
-  // Get valid moves for the empty tile
+  
   const getValidMoves = (currentBoard, gridSize) => {
     const emptyIndex = currentBoard.indexOf(0);
     const row = Math.floor(emptyIndex / gridSize);
     const col = emptyIndex % gridSize;
     const validMoves = [];
     
-    // Check up
+    
     if (row > 0) validMoves.push(emptyIndex - gridSize);
-    // Check down
+    
     if (row < gridSize - 1) validMoves.push(emptyIndex + gridSize);
-    // Check left
+    
     if (col > 0) validMoves.push(emptyIndex - 1);
-    // Check right
+    
     if (col < gridSize - 1) validMoves.push(emptyIndex + 1);
     
     return validMoves;
   };
   
-  // Check if the game is solved
+  
   const checkWin = useCallback((currentBoard) => {
-    // A solved board has numbers 1 to size*size-1 in order, followed by 0
+    
     for (let i = 0; i < currentBoard.length - 1; i++) {
       if (currentBoard[i] !== i + 1) return false;
     }
     return currentBoard[currentBoard.length - 1] === 0;
   }, []);
 
-  // Handle tile click
+  
   const handleTileClick = (index) => {
     if (gameOver) return;
     
     const emptyIndex = board.indexOf(0);
-    // Check if the clicked tile is adjacent to the empty space
+    
     const validMoves = getValidMoves(board, size);
     
     if (validMoves.includes(index)) {
-      // Create new board with the move applied
+      
       const newBoard = [...board];
       [newBoard[emptyIndex], newBoard[index]] = [newBoard[index], newBoard[emptyIndex]];
       
       setBoard(newBoard);
       setMoves(moves + 1);
       
-      // Check if the puzzle is solved
+      
       if (checkWin(newBoard)) {
         setGameOver(true);
         setEndTime(Date.now());
@@ -89,17 +89,17 @@ const SlidingPuzzle = () => {
     }
   };
   
-  // Handle difficulty change
+  
   const changeSize = (newSize) => {
     setSize(newSize);
   };
   
-  // Initialize game on mount or when size changes
+  
   useEffect(() => {
     initializeGame();
   }, [initializeGame, size]);
 
-  // Format time for display
+  
   const formatTime = (milliseconds) => {
     if (!milliseconds) return '00:00';
     const seconds = Math.floor(milliseconds / 1000);
@@ -107,7 +107,7 @@ const SlidingPuzzle = () => {
     return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
   };
 
-  // Calculate elapsed time
+  
   const elapsedTime = endTime 
     ? endTime - startTime 
     : startTime 

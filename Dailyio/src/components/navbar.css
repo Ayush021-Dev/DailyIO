@@ -20,7 +20,7 @@
     padding: 15px 20px;
   }
   
-  /* Logo */
+  
   .navbar-logo a {
     text-decoration: none;
   }
@@ -37,7 +37,6 @@
     color: #FFD93D;
   }
   
-  /* Nav Links */
   .navbar-links ul {
     display: flex;
     list-style: none;
@@ -73,7 +72,6 @@
     width: 100%;
   }
   
-  /* Auth Buttons */
   .navbar-auth {
     display: flex;
     gap: 15px;
@@ -107,7 +105,6 @@
     box-shadow: 0 5px 15px rgba(26, 145, 218, 0.4);
   }
   
-  /* Hamburger Menu */
   .navbar-menu-icon {
     display: none;
     cursor: pointer;
@@ -158,7 +155,6 @@
     transform: rotate(-45deg);
   }
   
-  /* Responsive Design */
   @media (max-width: 768px) {
     .navbar-container {
       flex-wrap: wrap;

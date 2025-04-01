@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./signup.css"; // Importing the updated CSS
+import "./signup.css"; 
 
 const Signup = () => {
   return (

@@ -62,8 +62,7 @@ function App() {
         <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} />
         <Route path="/converter" element={<NavbarWrapper><CurrencyConverter /></NavbarWrapper>} />
         <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} />
-        {/* <Route path="/aboutus" element={<NavbarWrapper><AboutUs /></NavbarWrapper>} /> */}
-        {/*  */}
+        
       </Routes>
     </Router>
   );

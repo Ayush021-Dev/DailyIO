@@ -54,7 +54,6 @@
     line-height: 1.5;
   }
   
-  /* Make the game responsive */
   @media (max-width: 850px) {
     .game-canvas {
       width: 100%;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Routes, Route } from "react-router-dom";
-import "./games.css"; // Import the Games CSS file
-import BrickBreaker from "./games/brick"; // Import the BrickBreaker component
+import "./games.css"; 
+import BrickBreaker from "./games/brick"; 
 import WhackAMole from './games/whack';
 import Snake from './games/snake';
 import Game2048 from './games/2048';
@@ -9,9 +9,7 @@ import Tetris from './games/tetris';
 import MemoryMatch from './games/memory';
 import SlidingPuzzle from "./games/puzzle";
 import PingPong from "./games/pingpong";
-// Then use it in your component or routes
 const GamesHome = () => {
-  // Array of game objects
   const games = [
     { id: 1, name: "Brick Breaker", description: "Break all the bricks!", path: "/games/brick" },
     { id: 2, name: "Memory Match", description: "Test your memory skills", path: "/games/memory" },
@@ -57,7 +55,6 @@ const Games = () => {
       <Route path="/games/memory" element={<MemoryMatch />} />
       <Route path="/games/puzzle" element={<SlidingPuzzle />} />
       <Route path="/games/pingpong" element={<PingPong />} />
-      {/* Add routes for other games as you develop them */}
     </Routes>
   );
 };

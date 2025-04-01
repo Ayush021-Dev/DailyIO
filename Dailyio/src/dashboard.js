@@ -9,7 +9,7 @@ const dashboardStyle = {
     padding: '20px 20px',
     animation: 'dashboardGradientBG 15s ease infinite'
   };
-  
+
 const Dashboard = () => {
     return (
         <div className="dashboard-page" style={dashboardStyle}>

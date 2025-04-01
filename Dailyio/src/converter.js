@@ -10,10 +10,8 @@ const CurrencyConverter = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Note: Replace with your actual ExchangeRate-API key
+  // ExchangeRate-API key
   const API_KEY = '6e775e2f33d6982ad50746fc';
-
-  // Supported currencies
   const currencies = [
     'INR', 'USD', 'EUR', 'GBP', 'JPY', 
     'AUD', 'CAD', 'CHF', 'CNY', 'SAR'
@@ -41,9 +39,9 @@ const CurrencyConverter = () => {
     };
 
     fetchExchangeRates();
-    // Refresh rates every 30 minutes
+    
     const intervalId = setInterval(fetchExchangeRates, 30 * 60 * 1000);
-    // Cleanup interval on component unmount
+    
     return () => clearInterval(intervalId);
   }, [fromCurrency, API_KEY]);
 
@@ -76,7 +74,7 @@ const CurrencyConverter = () => {
   return (
     <div className="currency-converter">
       <div className="currency-converter__section">
-        <h1 align="center">Currency Converter</h1>
+        <h1 align="center">Currency Converter</h1 >
         <input
           className="currency-converter__input"
           type="number"

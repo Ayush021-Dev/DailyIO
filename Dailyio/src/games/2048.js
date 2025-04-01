@@ -8,7 +8,6 @@ const Game2048 = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [bestScore, setBestScore] = useState(0);
   
-  // Game colors for different tile values
   const tileColors = {
     2: { background: '#EEE4DA', text: '#776E65' },
     4: { background: '#EDE0C8', text: '#776E65' },
@@ -23,18 +22,17 @@ const Game2048 = () => {
     2048: { background: '#EDC22E', text: '#FFF' },
   };
 
-  // Initialize board
+  
   const initializeBoard = () => {
     const newBoard = Array(4).fill().map(() => Array(4).fill(0));
     return addRandomTile(addRandomTile(newBoard));
   };
 
-  // Add a random tile (2 or 4) to an empty cell
   const addRandomTile = (board) => {
     const clonedBoard = JSON.parse(JSON.stringify(board));
     const emptyCells = [];
     
-    // Find all empty cells
+
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         if (clonedBoard[i][j] === 0) {
@@ -45,16 +43,16 @@ const Game2048 = () => {
     
     if (emptyCells.length === 0) return clonedBoard;
     
-    // Randomly select an empty cell
+
     const { i, j } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     
-    // Place either 2 or 4 (90% chance for 2, 10% chance for 4)
+
     clonedBoard[i][j] = Math.random() < 0.9 ? 2 : 4;
     
     return clonedBoard;
   };
 
-  // Start a new game
+
   const startNewGame = () => {
     setBoard(initializeBoard());
     setScore(0);
@@ -63,28 +61,28 @@ const Game2048 = () => {
     setGameStarted(true);
   };
 
-  // Continue playing after winning
-  const continueGame = () => {
+ 
+const continueGame = () => {
     setWon(false);
   };
 
-  // Check if the game is over (no more moves)
+
   const checkGameOver = (board) => {
-    // Check for empty cells
+ 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         if (board[i][j] === 0) return false;
       }
     }
     
-    // Check for possible merges horizontally
+ 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 3; j++) {
         if (board[i][j] === board[i][j + 1]) return false;
       }
-    }
+   }
     
-    // Check for possible merges vertically
+ 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
         if (board[i][j] === board[i + 1][j]) return false;
@@ -94,13 +92,13 @@ const Game2048 = () => {
     return true;
   };
 
-  // Move functions
+ 
   const moveLeft = (board) => {
     let clonedBoard = JSON.parse(JSON.stringify(board));
     let newScore = score;
     let moved = false;
     
-    for (let i = 0; i < 4; i++) {
+   for (let i = 0; i < 4; i++) {
       let row = clonedBoard[i].filter(val => val !== 0);
       let newRow = [];
       
@@ -117,7 +115,6 @@ const Game2048 = () => {
         }
       }
       
-      // Pad with zeros
       while (newRow.length < 4) {
         newRow.push(0);
       }
@@ -163,7 +160,7 @@ const Game2048 = () => {
         }
       }
       
-      // Pad with zeros
+ 
       while (newRow.length < 4) {
         newRow.unshift(0);
       }
@@ -215,7 +212,7 @@ const Game2048 = () => {
         }
       }
       
-      // Pad with zeros
+ 
       while (newColumn.length < 4) {
         newColumn.push(0);
       }
@@ -269,8 +266,8 @@ const Game2048 = () => {
           newColumn.unshift(column[i]);
         }
       }
-      
-      // Pad with zeros
+     
+ 
       while (newColumn.length < 4) {
         newColumn.unshift(0);
       }
@@ -298,7 +295,7 @@ const Game2048 = () => {
     return { newBoard: clonedBoard, moved };
   };
 
-  // Handle keyboard events
+ 
   const handleKeyPress = (e) => {
     if (!gameStarted || gameOver || (won && !e.key === 'c')) return;
     
@@ -331,7 +328,6 @@ const Game2048 = () => {
     e.preventDefault();
   };
 
-  // Get stored best score from localStorage
   useEffect(() => {
     const storedBestScore = localStorage.getItem('2048BestScore');
     if (storedBestScore) {
@@ -339,7 +335,7 @@ const Game2048 = () => {
     }
   }, []);
 
-  // Add keyboard event listener
+ 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => {
@@ -347,7 +343,6 @@ const Game2048 = () => {
     };
   });
 
-  // Touch swipe handling for mobile
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
   
@@ -371,10 +366,8 @@ const Game2048 = () => {
     const deltaX = touchEnd.x - touchStart.x;
     const deltaY = touchEnd.y - touchStart.y;
     
-    // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Horizontal swipe
-      if (Math.abs(deltaX) > 30) { // Minimum swipe distance
+      if (Math.abs(deltaX) > 30) { 
         let result;
         if (deltaX > 0) {
           result = moveRight(board);
@@ -389,8 +382,8 @@ const Game2048 = () => {
         }
       }
     } else {
-      // Vertical swipe
-      if (Math.abs(deltaY) > 30) { // Minimum swipe distance
+      
+      if (Math.abs(deltaY) > 30) { 
         let result;
         if (deltaY > 0) {
           result = moveDown(board);
@@ -407,7 +400,6 @@ const Game2048 = () => {
     }
   };
 
-  // CSS for the animated gradient background
   const gradientKeyframes = `
     body {
       margin: 0;
@@ -424,7 +416,7 @@ const Game2048 = () => {
       100% { background-position: 0% 50%; }
     }
   `;
-  // Styles
+
   const styles = {
     gameContainer: {
       display: 'flex',
@@ -483,7 +475,7 @@ const Game2048 = () => {
     },
     tile: {
       width: '100%',
-      paddingTop: '100%', // Makes it a square
+      paddingTop: '100%', 
       position: 'relative',
       borderRadius: '5px',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -502,7 +494,7 @@ const Game2048 = () => {
       transition: 'background-color 0.1s, transform 0.1s',
     },
     button: {
-      backgroundColor: '#ff9f67', // Orange from the Whack-A-Mole card
+      backgroundColor: '#ff9f67', 
       position: 'center',
       color: 'white',
       border: 'none',
@@ -558,7 +550,6 @@ const Game2048 = () => {
     }
   };
 
-  // Calculate font size based on number length
   const getFontSize = (value) => {
     if (value >= 1000) return '1.2rem';
     if (value >= 100) return '1.6rem';
@@ -567,7 +558,6 @@ const Game2048 = () => {
 
   return (
     <>
-      {/* Add keyframes animation for the gradient */}
       <style>{gradientKeyframes}</style>
       
       <div style={styles.gameContainer}>

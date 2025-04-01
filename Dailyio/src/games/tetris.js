@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './tetris.css';
 
-// Tetromino shapes
+
 const SHAPES = {
   I: [
     [0, 0, 0, 0],
@@ -41,13 +41,13 @@ const SHAPES = {
 };
 
 const COLORS = [
-  '#FF6B6B',  // Red
-  '#4ECDC4',  // Teal
-  '#45B7D1',  // Blue
-  '#96C93D',  // Green
-  '#FFD93D',  // Yellow
-  '#FF8A5B',  // Orange
-  '#6A5ACD'   // Slate Blue
+  '#FF6B6B',  
+  '#4ECDC4',  
+  '#45B7D1',  
+  '#96C93D',  
+  '#FFD93D',  
+  '#FF8A5B',  
+  '#6A5ACD'   
 ];
 
 const Tetris = () => {
@@ -59,7 +59,7 @@ const Tetris = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
 
-  // Memoize piece creation
+  
   const createPiece = useCallback(() => {
     const shapeKeys = Object.keys(SHAPES);
     const randomShape = SHAPES[shapeKeys[Math.floor(Math.random() * shapeKeys.length)]];
@@ -69,7 +69,7 @@ const Tetris = () => {
     };
   }, []);
 
-  // Memoize canMove function
+  
   const canMove = useCallback((shape, board, offsetX, offsetY) => {
     for (let y = 0; y < shape.length; y++) {
       for (let x = 0; x < shape[y].length; x++) {
@@ -77,7 +77,7 @@ const Tetris = () => {
           const newX = offsetX + x;
           const newY = offsetY + y;
 
-          // Check board boundaries
+          
           if (
             newX < 0 || 
             newX >= 9 || 
@@ -92,11 +92,11 @@ const Tetris = () => {
     return true;
   }, []);
 
-  // Memoize lockPiece function
+  
   const lockPiece = useCallback(() => {
     const newBoard = [...board];
     
-    // Place current piece on the board
+    
     currentPiece.shape.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value) {
@@ -110,9 +110,9 @@ const Tetris = () => {
       });
     });
 
-    // Clear completed lines
+    
     const clearedBoard = newBoard.reduce((acc, row) => {
-      // If line is full, don't add it and increase score
+      
       if (row.every(cell => cell)) {
         setScore(prev => prev + 100);
         return acc;
@@ -120,18 +120,18 @@ const Tetris = () => {
       return [...acc, row];
     }, []);
 
-    // Add empty rows to top if lines were cleared
+    
     while (clearedBoard.length < 16) {
       clearedBoard.unshift(Array(9).fill(0));
     }
 
     setBoard(clearedBoard);
 
-    // Create new piece
+    
     const newPiece = createPiece();
     setCurrentPiece(newPiece);
     
-    // Check game over condition
+    
     const startX = Math.floor((10 - newPiece.shape[0].length) / 2);
     if (!canMove(newPiece.shape, clearedBoard, startX, 0)) {
       setGameOver(true);
@@ -140,22 +140,22 @@ const Tetris = () => {
     }
   }, [board, currentPiece, currentPosition, canMove, createPiece]);
 
-  // Initialize game
+  
   useEffect(() => {
     const newPiece = createPiece();
     setCurrentPiece(newPiece);
     setCurrentPosition({ x: Math.floor((10 - newPiece.shape[0].length) / 2), y: 0 });
   }, [createPiece]);
 
-  // Game loop and piece movement
+  
   useEffect(() => {
     if (gameOver) return;
 
     const movePieceDown = () => {
       setCurrentPosition(prev => {
-        // Check if piece can move down
+        
         if (!canMove(currentPiece.shape, board, prev.x, prev.y + 1)) {
-          // Lock piece in place
+          
           lockPiece();
           return prev;
         }
@@ -167,32 +167,32 @@ const Tetris = () => {
     return () => clearInterval(gameLoop);
   }, [currentPiece, gameOver, board, canMove, lockPiece]);
 
-  // Handle keyboard controls
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (gameOver) return;
 
       switch (e.key) {
         case 'ArrowLeft':
-          // Move piece left
+          
           if (canMove(currentPiece.shape, board, currentPosition.x - 1, currentPosition.y)) {
             setCurrentPosition(prev => ({ ...prev, x: prev.x - 1 }));
           }
           break;
         case 'ArrowRight':
-          // Move piece right
+          
           if (canMove(currentPiece.shape, board, currentPosition.x + 1, currentPosition.y)) {
             setCurrentPosition(prev => ({ ...prev, x: prev.x + 1 }));
           }
           break;
         case 'ArrowDown':
-          // Move piece down faster
+          
           if (canMove(currentPiece.shape, board, currentPosition.x, currentPosition.y + 1)) {
             setCurrentPosition(prev => ({ ...prev, y: prev.y + 1 }));
           }
           break;
         case 'ArrowUp':
-          // Rotate piece
+          
           const rotatedShape = currentPiece.shape[0].map((val, index) => 
             currentPiece.shape.map(row => row[index]).reverse()
           );
@@ -201,7 +201,7 @@ const Tetris = () => {
           }
           break;
         default:
-          // No action for other keys
+          
           break;
       }
     };
@@ -210,7 +210,7 @@ const Tetris = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentPiece, currentPosition, gameOver, board, canMove]);
 
-  // Restart game
+  
   
   const restartGame = () => {
     setBoard(Array.from({ length: 16 }, () => Array(9).fill(0)));
@@ -220,7 +220,7 @@ const Tetris = () => {
     setCurrentPiece(newPiece);
     setCurrentPosition({ x: Math.floor((10 - newPiece.shape[0].length) / 2), y: 0 });
   };
-  // Render board with current piece
+  
   const renderBoard = useMemo(() => {
     const displayBoard = board.map(row => [...row]);
     

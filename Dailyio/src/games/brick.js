@@ -8,14 +8,12 @@ const BrickBreaker = () => {
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   
-  // Game state refs to prevent race conditions
   const gameStartedRef = useRef(gameStarted);
   const scoreRef = useRef(score);
   const livesRef = useRef(lives);
   const gameOverRef = useRef(gameOver);
   const gameWonRef = useRef(gameWon);
   
-  // Update refs when state changes
   useEffect(() => {
     gameStartedRef.current = gameStarted;
     scoreRef.current = score;
@@ -24,14 +22,13 @@ const BrickBreaker = () => {
     gameWonRef.current = gameWon;
   }, [gameStarted, score, lives, gameOver, gameWon]);
 
-  // Game container styles to match color scheme
   const styles = {
     container: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'transparent', // Matching turquoise background
+      background: 'transparent', 
       padding: '20px',
       borderRadius: '12px',
       width: '100%',
@@ -98,21 +95,15 @@ const BrickBreaker = () => {
     let brickOffsetTop = 30;
     let brickOffsetLeft = 30;
     
-    // Calculate total bricks for win condition
-    // const totalBricks = brickRowCount * brickColumnCount;
-    
-    // Create bricks array with colors matching the UI scheme
     let bricks = [];
     for (let c = 0; c < brickColumnCount; c++) {
       bricks[c] = [];
       for (let r = 0; r < brickRowCount; r++) {
-        // Colors matching the UI tiles
         let colors = ['#7868E6', '#FF70B0', '#55D6D2', '#FFB961', '#80E6C7'];
         bricks[c][r] = { x: 0, y: 0, status: 1, color: colors[r] };
       }
     }
     
-    // Event listeners for paddle movement
     const keyDownHandler = (e) => {
       if (e.key === 'Right' || e.key === 'ArrowRight') {
         rightPressed = true;
@@ -136,35 +127,30 @@ const BrickBreaker = () => {
       }
     };
     
-    // Add event listeners
     document.addEventListener('keydown', keyDownHandler);
     document.addEventListener('keyup', keyUpHandler);
     document.addEventListener('mousemove', mouseMoveHandler);
     
-    // Draw ball
     const drawBall = () => {
       ctx.beginPath();
       ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-      ctx.fillStyle = '#FFB961'; // Orange like the Quiz Challenge card
+      ctx.fillStyle = '#FFB961'; 
       ctx.fill();
       ctx.closePath();
     };
     
-    // Draw paddle
     const drawPaddle = () => {
       ctx.beginPath();
-      // Fix for Safari that might not support roundRect
       if (ctx.roundRect) {
         ctx.roundRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight, 5);
       } else {
         ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
       }
-      ctx.fillStyle = '#7868E6'; // Purple like the first tile
+      ctx.fillStyle = '#7868E6'; 
       ctx.fill();
       ctx.closePath();
     };
     
-    // Draw bricks
     const drawBricks = () => {
       for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -174,7 +160,6 @@ const BrickBreaker = () => {
             bricks[c][r].x = brickX;
             bricks[c][r].y = brickY;
             ctx.beginPath();
-            // Fix for Safari that might not support roundRect
             if (ctx.roundRect) {
               ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 3);
             } else {
@@ -188,21 +173,18 @@ const BrickBreaker = () => {
       }
     };
     
-    // Draw score
     const drawScore = () => {
       ctx.font = '16px Arial, sans-serif';
       ctx.fillStyle = '#FFFFFF';
       ctx.fillText(`Score: ${scoreRef.current}`,60,20);
     };
     
-    // Draw lives
     const drawLives = () => {
       ctx.font = '16px Arial, sans-serif';
       ctx.fillStyle = '#FFFFFF';
       ctx.fillText(`Lives: ${livesRef.current}`, canvas.width - 80, 20);
     };
-    
-    // Count active bricks
+
     const countActiveBricks = () => {
       let count = 0;
       for (let c = 0; c < brickColumnCount; c++) {
@@ -215,7 +197,7 @@ const BrickBreaker = () => {
       return count;
     };
     
-    // Check collision with bricks
+    
     const collisionDetection = () => {
       for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -230,11 +212,11 @@ const BrickBreaker = () => {
               dy = -dy;
               b.status = 0;
               
-              // Update score safely using ref
+              
               const newScore = scoreRef.current + 1;
               setScore(newScore);
               
-              // Check for win condition - if all bricks are gone
+              
               const remainingBricks = countActiveBricks();
               if (remainingBricks === 0) {
                 setGameWon(true);
@@ -246,17 +228,17 @@ const BrickBreaker = () => {
       }
     };
     
-    // Main draw function
+    
     const draw = () => {
-      // Check if game is still active
+      
       if (!gameStartedRef.current || gameOverRef.current || gameWonRef.current) {
         return;
       }
       
-      // Clear canvas
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw elements
+      
       drawBricks();
       drawBall();
       drawPaddle();
@@ -264,7 +246,7 @@ const BrickBreaker = () => {
       drawLives();
       collisionDetection();
       
-      // Ball movement and collision logic
+      
       if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
       }
@@ -273,13 +255,13 @@ const BrickBreaker = () => {
         dy = -dy;
       } else if (y + dy > canvas.height - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
-          // Ball hits paddle
+          
           dy = -dy;
-          // Adjust angle based on where ball hits paddle
-          const hitPosition = (x - paddleX) / paddleWidth; // 0 to 1
-          dx = 8 * (hitPosition - 0.5); // -4 to 4
+          
+          const hitPosition = (x - paddleX) / paddleWidth; 
+          dx = 8 * (hitPosition - 0.5); 
         } else {
-          // Ball misses paddle
+          
           const newLives = livesRef.current - 1;
           setLives(newLives);
           
@@ -288,7 +270,7 @@ const BrickBreaker = () => {
             setGameStarted(false);
             return;
           } else {
-            // Reset ball position
+            
             x = canvas.width / 2;
             y = canvas.height - 30;
             dx = 5;
@@ -298,65 +280,65 @@ const BrickBreaker = () => {
         }
       }
       
-      // Paddle movement
+      
       if (rightPressed && paddleX < canvas.width - paddleWidth) {
         paddleX += 7;
       } else if (leftPressed && paddleX > 0) {
         paddleX -= 7;
       }
       
-      // Move ball
+      
       x += dx;
       y += dy;
       
-      // Continue animation only if game is active
+      
       if (gameStartedRef.current && !gameOverRef.current && !gameWonRef.current) {
         animationFrameId = requestAnimationFrame(draw);
       }
     };
     
-    // Draw the game screen based on current state
+    
     const updateGameScreen = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       if (gameStartedRef.current && !gameOverRef.current && !gameWonRef.current) {
-        // If game is active, continue game loop
+        
         animationFrameId = requestAnimationFrame(draw);
       } else {
-        // Draw game elements
+        
         drawBricks();
         drawBall();
         drawPaddle();
         drawScore();
         drawLives();
         
-        // Center text
+        
         ctx.textAlign = 'center';
         
         if (gameOverRef.current) {
-          // Game over screen
+          
           ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           
           ctx.font = '24px Arial, sans-serif';
-          ctx.fillStyle = '#FF70B0'; // Pink like 2048 card
+          ctx.fillStyle = '#FF70B0'; 
           ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 30);
           ctx.fillStyle = '#FFFFFF';
           ctx.fillText(`Final Score: ${scoreRef.current}`, canvas.width / 2, canvas.height / 2);
           ctx.fillText('Click to restart', canvas.width / 2, canvas.height / 2 + 30);
         } else if (gameWonRef.current) {
-          // Win screen
+          
           ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           
           ctx.font = '24px Arial, sans-serif';
-          ctx.fillStyle = '#7868E6'; // Purple like first card
+          ctx.fillStyle = '#7868E6'; 
           ctx.fillText('Congratulations! You Won!', canvas.width / 2, canvas.height / 2 - 30);
           ctx.fillStyle = '#FFFFFF';
           ctx.fillText(`Final Score: ${scoreRef.current}`, canvas.width / 2, canvas.height / 2);
           ctx.fillText('Click to restart', canvas.width / 2, canvas.height / 2 + 30);
         } else {
-          // Start screen
+          
           ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
           ctx.fillRect(0, canvas.height / 2 - 50, canvas.width, 100);
           
@@ -369,24 +351,24 @@ const BrickBreaker = () => {
       }
     };
     
-    // Handle canvas clicks
+    
     const handleCanvasClick = () => {
       if (!gameStartedRef.current) {
         if (gameOverRef.current || gameWonRef.current) {
-          // Reset game state
+          
           setScore(0);
           setLives(3);
           setGameOver(false);
           setGameWon(false);
           
-          // Reset bricks
+          
           for (let c = 0; c < brickColumnCount; c++) {
             for (let r = 0; r < brickRowCount; r++) {
               bricks[c][r].status = 1;
             }
           }
           
-          // Reset ball and paddle
+          
           x = canvas.width / 2;
           y = canvas.height - 30;
           dx = 5;
@@ -394,34 +376,34 @@ const BrickBreaker = () => {
           paddleX = (canvas.width - paddleWidth) / 2;
         }
         
-        // Start the game
+        
         setGameStarted(true);
       }
     };
     
-    // Add click event listener
+    
     canvas.addEventListener('click', handleCanvasClick);
     
-    // Initial render
+    
     updateGameScreen();
     
-    // Effect for handling game state changes
+    
     const gameStateChangeEffect = () => {
       if (gameStartedRef.current && !gameOverRef.current && !gameWonRef.current) {
-        // Start game loop if not already running
+        
         cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(draw);
       } else {
-        // Update static screen
+        
         cancelAnimationFrame(animationFrameId);
         updateGameScreen();
       }
     };
     
-    // Set up game state change watcher
+    
     const gameStateInterval = setInterval(gameStateChangeEffect, 100);
     
-    // Cleanup
+    
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearInterval(gameStateInterval);

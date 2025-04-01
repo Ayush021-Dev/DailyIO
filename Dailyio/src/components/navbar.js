@@ -19,15 +19,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
+        
         <div className="navbar-logo">
           <Link to="../">
             <h1>Daily<span>IO</span></h1>
           </Link>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="navbar-menu-icon" onClick={toggleMenu}>
+         <div className="navbar-menu-icon" onClick={toggleMenu}>
           <div className={isMenuOpen ? "hamburger active" : "hamburger"}>
             <span></span>
             <span></span>
@@ -35,7 +34,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Navigation Links */}
         <div className={isMenuOpen ? "navbar-links active" : "navbar-links"}>
           <ul>
             <li>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const Snake = () => {
-  // Game board size
+  
   const GRID_SIZE = 20;
   const CELL_SIZE = 20;
   
-  // Game states
+  
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
   const [food, setFood] = useState({ x: 5, y: 5 });
   const [direction, setDirection] = useState('RIGHT');
@@ -14,7 +14,7 @@ const Snake = () => {
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(150);
   
-  // Colors matching the provided UI
+  
   const colors = {
     snake: '#7868E6',
     food: '#FF70B0',
@@ -22,14 +22,14 @@ const Snake = () => {
     text: '#FFFFFF'
   };
 
-  // Generate random food position
+  
   const generateFood = useCallback(() => {
     const newFood = {
       x: Math.floor(Math.random() * (GRID_SIZE - 1)) + 1,
       y: Math.floor(Math.random() * (GRID_SIZE - 1)) + 1
     };
     
-    // Make sure food doesn't spawn on snake
+    
     for (const segment of snake) {
       if (segment.x === newFood.x && segment.y === newFood.y) {
         return generateFood();
@@ -39,9 +39,9 @@ const Snake = () => {
     return newFood;
   }, [snake]);
   
-  // Check for collisions
+  
   const checkCollision = useCallback((head) => {
-    // Check for wall collision
+    
     if (
       head.x < 0 || 
       head.y < 0 || 
@@ -51,7 +51,7 @@ const Snake = () => {
       return true;
     }
     
-    // Check for self collision (skip the last piece as it will be removed)
+    
     for (let i = 0; i < snake.length - 1; i++) {
       if (snake[i].x === head.x && snake[i].y === head.y) {
         return true;
@@ -61,7 +61,7 @@ const Snake = () => {
     return false;
   }, [snake]);
   
-  // Handle keyboard input
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (gameOver) return;
@@ -93,7 +93,7 @@ const Snake = () => {
     };
   }, [direction, gameOver, paused]);
   
-  // Game loop
+  
   useEffect(() => {
     if (gameOver || paused) return;
     
@@ -101,7 +101,7 @@ const Snake = () => {
       const newSnake = [...snake];
       const head = { ...newSnake[0] };
       
-      // Move head based on direction
+      
       switch (direction) {
         case 'UP':
           head.y -= 1;
@@ -119,26 +119,26 @@ const Snake = () => {
           break;
       }
       
-      // Check for collision
+      
       if (checkCollision(head)) {
         setGameOver(true);
         return;
       }
       
-      // Add new head
+      
       newSnake.unshift(head);
       
-      // Check if food is eaten
+      
       if (head.x === food.x && head.y === food.y) {
         setScore(score + 10);
         setFood(generateFood());
         
-        // Speed up the game as score increases
+        
         if (score % 50 === 0 && speed > 50) {
           setSpeed(prevSpeed => prevSpeed - 10);
         }
       } else {
-        // Remove tail if no food eaten
+        
         newSnake.pop();
       }
       
@@ -149,7 +149,7 @@ const Snake = () => {
     return () => clearInterval(gameInterval);
   }, [snake, food, direction, gameOver, paused, score, speed, generateFood, checkCollision]);
   
-  // Reset game
+  
   const resetGame = () => {
     setSnake([{ x: 10, y: 10 }]);
     setFood(generateFood());
@@ -160,7 +160,7 @@ const Snake = () => {
     setPaused(false);
   };
   
-  // Render functions
+  
   const renderCell = (i, j) => {
     const isSnakeCell = snake.some(segment => segment.x === j && segment.y === i);
     const isFoodCell = food.x === j && food.y === i;

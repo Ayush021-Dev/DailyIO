@@ -39,7 +39,7 @@ const News = () => {
 
   return (
     <div className="news-dashboard-page">
-     <br></br><br></br> <div className="news-container">
+      <div className="news-container">
         <div className="news-header">
           <h2>Global News Dashboard</h2>
           <p>Real-time news from around the world</p>
