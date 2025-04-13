@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
 
+// Define the API URL with fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -27,7 +30,7 @@ const Signup = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${API_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,7 +66,6 @@ const Signup = () => {
         <div className="signup-card">
           {error && <div className="signup-error">{error}</div>}
           <form className="signup-form" onSubmit={handleSubmit}>
-            {/* Keep your existing form fields */}
             <div className="signup-form-group">
               <label htmlFor="fullName">Full Name</label>
               <input

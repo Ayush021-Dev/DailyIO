@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 
+// Define the API URL with fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -26,7 +29,7 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
