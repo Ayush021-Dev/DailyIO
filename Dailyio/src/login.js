@@ -35,8 +35,10 @@ const Login = () => {
       const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
+        credentials: 'include', // Add this line
         body: JSON.stringify({
           email: formData.email,
           password: formData.password
@@ -46,7 +48,6 @@ const Login = () => {
       const data = await response.json();
       
       if (!response.ok) {
-        // This is the important part - throw the error with the message from the server
         throw new Error(data.message || 'Invalid email or password');
       }
       
@@ -56,16 +57,17 @@ const Login = () => {
       if (data.token) {
         if (formData.rememberMe) {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user)); // Store user data
         } else {
           sessionStorage.setItem('token', data.token);
+          sessionStorage.setItem('user', JSON.stringify(data.user)); // Store user data
         }
       }
       
       // Redirect to dashboard
       navigate('/dashboard');
     } catch (err) {
-      // Make sure the error state is set properly
-      setError(err.message || 'Invalid email or password');
+      setError(err.message || 'Login failed. Please try again.');
       console.error('Login error:', err);
     } finally {
       setLoading(false);

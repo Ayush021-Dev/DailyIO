@@ -36,8 +36,10 @@ const Signup = () => {
       const response = await fetch(`${API_URL}/signup`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
+        credentials: 'include', // Add this line
         body: JSON.stringify(formData)
       });
       
@@ -48,8 +50,7 @@ const Signup = () => {
       }
       
       console.log('Signup successful:', data);
-      // Redirect to dashboard or login page
-      navigate('/dashboard'); // or navigate('/login')
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message);
       console.error('Signup error:', err);
