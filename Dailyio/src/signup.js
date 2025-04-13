@@ -32,27 +32,35 @@ const Signup = () => {
     setError('');
     setLoading(true);
     
+    // Log the data being sent
+    console.log('Sending data:', formData);
+    
     try {
       const response = await fetch(`${API_URL}/signup`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          agreeTerms: formData.agreeTerms
+        })
       });
-      
-      const data = await response.json();
-      
+  
       if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Signup failed');
       }
-      
-      console.log('Signup successful:', data);
+  
+      const data = await response.json();
+      console.log('Success:', data);
       navigate('/dashboard');
     } catch (err) {
+      console.error('Error:', err);
       setError(err.message);
-      console.error('Signup error:', err);
     } finally {
       setLoading(false);
     }
