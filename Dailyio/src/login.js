@@ -1,53 +1,149 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./login.css"; 
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './login.css';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        // This is the important part - throw the error with the message from the server
+        throw new Error(data.message || 'Invalid email or password');
+      }
+      
+      console.log('Login successful:', data);
+      
+      // Store token in localStorage or sessionStorage based on rememberMe
+      if (data.token) {
+        if (formData.rememberMe) {
+          localStorage.setItem('token', data.token);
+        } else {
+          sessionStorage.setItem('token', data.token);
+        }
+      }
+      
+      // Redirect to dashboard
+      navigate('/dashboard');
+    } catch (err) {
+      // Make sure the error state is set properly
+      setError(err.message || 'Invalid email or password');
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="auth-module">
-      <div className="auth-page-wrapper">
-        <div className="auth-login-container">
-          
-          <div className="auth-logo">
-            <Link to="/">
-              <img src="Logo.png" alt="DailyIO" width="50" />
-            </Link>
-          </div>
+    <div className="login-container">
+      <div className="login-content">
+        <div className="login-header">
+          <h1>Daily<span>IO</span></h1>
+          <p className="login-subtitle">Welcome Back!</p>
+        </div>
 
-          <div className="auth-signup-link">
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </div>
-
-          <form>
-            <div className="auth-form-group">
-              <label htmlFor="email" className="auth-label">Email</label>
-              <input type="email" id="email" name="email" className="auth-input" required />
+        <div className="login-card">
+          {error && <div className="login-error">{error}</div>}
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div className="login-form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="login-input"
+                placeholder="Enter your email"
+                required
+              />
             </div>
 
-            <div className="auth-form-group">
-              <label htmlFor="password" className="auth-label">Password</label>
-              <input type="password" id="password" name="password" className="auth-input" required />
+            <div className="login-form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="login-input"
+                placeholder="Enter your password"
+                required
+              />
             </div>
 
-            <div className="auth-remember-forgot">
-              <div className="auth-remember-me">
-                <input type="checkbox" id="remember" name="remember" />
-                <label htmlFor="remember">Remember me</label>
+            <div className="login-form-options">
+              <div className="login-remember-me">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={formData.rememberMe}
+                  onChange={handleChange}
+                />
+                <label htmlFor="rememberMe">Remember me</label>
               </div>
-              <Link to="/forgot-password" className="auth-forgot-password">Forgot Password?</Link>
+              <a href="/forgot-password" className="login-forgot-password">Forgot Password?</a>
             </div>
 
-            <button type="submit" className="auth-login-button">Log In</button>
+            <button 
+              type="submit" 
+              className="login-button"
+              disabled={loading}
+            >
+              {loading ? 'LOGGING IN...' : 'LOGIN'}
+            </button>
+            
+            <div className="login-divider">
+              <span>OR</span>
+            </div>
+            
+            <div className="login-social-buttons">
+              <button type="button" className="login-social-button login-google">
+                Continue with Google
+              </button>
+              <button type="button" className="login-social-button login-facebook">
+                Continue with Facebook
+              </button>
+            </div>
+            
+            <div className="login-signup-link">
+              Don't have an account? <Link to="/signup">Sign Up</Link>
+            </div>
           </form>
-
-          <div className="auth-divider">
-            <span>or</span>
-          </div>
-
-          <button className="auth-google-login">
-            <b>G</b> Continue with Google
-          </button>
-
         </div>
       </div>
     </div>

@@ -55,7 +55,7 @@ const Dashboard = () => {
                                     </Link>
                                 </div>
                                 <div className="dashboard-feature">
-                                    <Link to="/converter">
+                                    <Link to="/currencyconverter">
                                         <h3>Currency</h3>
                                         <p>Exchange Rates</p>
                                     </Link>

@@ -19,7 +19,7 @@ import PingPong from "./games/pingpong";
 import Tetris from "./games/tetris";
 import Stock from "./stock";
 import News from "./news";
-import CurrencyConverter from "./converter";
+import CurrencyConverter from "./currencyconverter";
 import UnitConverter from "./unitconverter";
 
 const NavbarWrapper = ({ children }) => {
@@ -60,7 +60,7 @@ function App() {
         <Route path="/games/pingpong" element={<NavbarWrapper><PingPong /></NavbarWrapper>} />
         <Route path="/stock" element={<NavbarWrapper><Stock /></NavbarWrapper>} />
         <Route path="/news" element={<NavbarWrapper><News /></NavbarWrapper>} />
-        <Route path="/converter" element={<NavbarWrapper><CurrencyConverter /></NavbarWrapper>} />
+        <Route path="/currencyconverter" element={<NavbarWrapper><CurrencyConverter /></NavbarWrapper>} />
         <Route path="/unitconverter" element={<NavbarWrapper><UnitConverter /></NavbarWrapper>} />
         
       </Routes>
