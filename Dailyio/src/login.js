@@ -38,7 +38,7 @@ const Login = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        credentials: 'omit', // Add this line
+        mode: 'cors',
         body: JSON.stringify({
           email: formData.email,
           password: formData.password

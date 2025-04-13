@@ -39,10 +39,10 @@ const Signup = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        credentials: 'omit', // Add this line
+        mode: 'cors',
         body: JSON.stringify(formData)
       });
-      
+            
       const data = await response.json();
       
       if (!response.ok) {
