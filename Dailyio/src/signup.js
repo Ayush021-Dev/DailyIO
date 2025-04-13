@@ -3,8 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
 
 // Define the API URL with fallback to localhost for development
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_URL = isDevelopment 
+  ? 'http://localhost:5000/api' 
+  : 'https://daily-io-backend.vercel.app/api';
+  
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
