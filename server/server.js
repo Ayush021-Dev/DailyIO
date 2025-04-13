@@ -11,7 +11,7 @@ app.use(cors({
   origin: ['http://localhost:3000', 'https://daily-io.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: false
 }));
 
 app.options('*', cors());
