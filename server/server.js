@@ -9,9 +9,12 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: ['http://localhost:3000', 'https://daily-io.vercel.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+
+app.options('*', cors());
 app.use(express.json());
 
 // Add a basic route for health checks
@@ -37,6 +40,7 @@ const User = mongoose.model('User', userSchema);
 
 // Route for user signup
 app.post('/api/signup', async (req, res) => {
+  console.log('Signup request received:', req.body);
   try {
     const { fullName, email, password, agreeTerms } = req.body;
     
@@ -64,6 +68,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
+  console.log('Login request received:', req.body);
   try {
     const { email, password } = req.body;
     
