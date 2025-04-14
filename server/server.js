@@ -6,8 +6,6 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const app = express();
 
-const cors = require('cors');
-
 // Define allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
