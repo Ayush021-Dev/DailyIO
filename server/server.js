@@ -29,6 +29,9 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
+// Add explicit handling for OPTIONS requests
+app.options('*', cors());
 app.use(express.json());
 
 // Add a basic route for health checks
