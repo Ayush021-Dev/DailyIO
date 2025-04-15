@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 
-// Define the API URL with fallback to localhost for development
 const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const API_URL = isDevelopment 
   ? 'http://localhost:5000/api' 
