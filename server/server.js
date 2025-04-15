@@ -6,7 +6,6 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const app = express();
 
-// Define allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
   'https://daily-io.vercel.app',
@@ -16,7 +15,6 @@ const allowedOrigins = [
 // Configure CORS
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.indexOf(origin) === -1) {
@@ -34,7 +32,6 @@ app.use(cors({
 app.options('*', cors());
 app.use(express.json());
 
-// Add a basic route for health checks
 app.get('/', (req, res) => {
   res.status(200).send('API is running');
 });
@@ -67,11 +64,10 @@ app.post('/api/signup', async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
     
-    // Create new user
     const newUser = new User({
       fullName,
       email,
-      password, // Note: In a production app, you should hash passwords
+      password, 
       agreeTerms
     });
     
@@ -89,28 +85,22 @@ app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Find user by email
     const user = await User.findOne({ email });
     
-    // Check if user exists
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     
-    // Check if password matches
-    // In a real app, you would compare hashed passwords
     if (user.password !== password) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     
-    // Generate a token (if using JWT)
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-      process.env.JWT_SECRET || '1jMxAsAUwgef7JbjR3g+kSkI9CJQpAHKgquXztbT5TaWHinJilNlQRviIHMZTA8OjMphE+JGBJ4ZVP39uQfuOw==', // ideally use an environment variable
+      process.env.JWT_SECRET || '1jMxAsAUwgef7JbjR3g+kSkI9CJQpAHKgquXztbT5TaWHinJilNlQRviIHMZTA8OjMphE+JGBJ4ZVP39uQfuOw==', 
       { expiresIn: '1h' }
     );
     
-    // Send success response with token
     res.status(200).json({
       message: 'Login successful',
       token,
