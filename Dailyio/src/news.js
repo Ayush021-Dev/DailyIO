@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './news.css';
 
+// Define category mapping outside the component
+const categoryToSection = {
+  general: 'news',
+  technology: 'technology',
+  business: 'business',
+  science: 'science',
+  sports: 'sport'
+};
+
+// Guardian API key - replace with your own from https://open-platform.theguardian.com/
+const GUARDIAN_API_KEY = 'fdc8a6e5-6cd2-47ad-ac77-703d3a61dd43'; // Use 'test' for development or your own API key
+
 const News = () => {
   const [newsArticles, setNewsArticles] = useState([]);
   const [activeCategory, setActiveCategory] = useState('general');
@@ -13,8 +25,9 @@ const News = () => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
+        const section = categoryToSection[activeCategory];
         const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?category=${activeCategory}&language=en&apiKey=7617166f1be449859f343ccf574d70a9`
+          `https://content.guardianapis.com/search?section=${section}&show-fields=headline,trailText,thumbnail&page-size=6&api-key=${GUARDIAN_API_KEY}`
         );
         
         if (!response.ok) {
@@ -22,7 +35,17 @@ const News = () => {
         }
         
         const data = await response.json();
-        setNewsArticles(data.articles.slice(0, 6)); // Limit to 6 articles
+        
+        // Transform Guardian API response to match our existing structure
+        const transformedArticles = data.response.results.map(article => ({
+          title: article.webTitle,
+          description: article.fields?.trailText || 'No description available',
+          publishedAt: article.webPublicationDate,
+          url: article.webUrl,
+          source: { name: 'The Guardian' }
+        }));
+        
+        setNewsArticles(transformedArticles);
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
@@ -31,7 +54,7 @@ const News = () => {
     };
     
     fetchNews();
-  }, [activeCategory]);
+  }, [activeCategory]); // No need to include categoryToSection since it's defined outside the component
 
   if (error) {
     return <div className="news-error-message">Error: {error}</div>;
@@ -64,7 +87,7 @@ const News = () => {
             newsArticles.map((news, index) => (
               <div className="news-card" key={index}>
                 <div className="news-title">{news.title}</div>
-                <div className="news-excerpt">{news.description || 'No description available'}</div>
+                <div className="news-excerpt">{news.description}</div>
                 
                 <div className="news-meta">
                   <span className="news-date">
