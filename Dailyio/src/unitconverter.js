@@ -1,13 +1,13 @@
 import { useState } from "react";
 import convert from "convert-units";
 import "./unitconverter.css";
+
 const UnitConverter = () => {
     const [measure, setMeasure] = useState("length");
     const [fromUnit, setFromUnit] = useState("m");
     const [toUnit, setToUnit] = useState("km");
     const [inputValue, setInputValue] = useState("");
     const [result, setResult] = useState("");
-    const [showBest, setShowBest] = useState(false);
 
     const measures = convert().measures();
     const units = convert().possibilities(measure);
@@ -29,7 +29,6 @@ const UnitConverter = () => {
             }
             
             setResult(`${inputValue} ${fromUnit} = ${output.toFixed(4)} ${toUnit}`);
-            setShowBest(false);
         } catch (error) {
             setResult("Invalid conversion combination");
         }
@@ -125,7 +124,7 @@ const UnitConverter = () => {
                     </form>
 
                     {result && (
-                        <div className={`unit-converter-result ${showBest ? "unit-converter-best-unit" : ""}`}>
+                        <div className="unit-converter-result">
                             {result}
                         </div>
                     )}
